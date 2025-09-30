@@ -4,6 +4,22 @@ import looklikeLogo from "@/assets/looklike_logo.png";
 const Footer = () => {
   const navigate = useNavigate();
 
+  const navigateAndScroll = (path: string, targetId?: string) => {
+    navigate(path);
+    if (!targetId) return;
+    let attempts = 0;
+    const maxAttempts = 20;
+    const tryScroll = () => {
+      const el = document.getElementById(targetId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else if (attempts++ < maxAttempts) {
+        setTimeout(tryScroll, 50);
+      }
+    };
+    setTimeout(tryScroll, 50);
+  };
+
   return (
     <footer className="relative bg-black backdrop-blur-[7px] border-t border-white/10 px-4 sm:px-6 lg:px-8 mt-8 sm:mt-0">
       <div className="container mx-auto px-4 py-12">
@@ -23,28 +39,32 @@ const Footer = () => {
           {/* Navigation Links */}
           <div className="flex flex-wrap items-center gap-6 md:gap-8">
             <a
-              href="#home"
+              href="/"
+              onClick={(e) => { e.preventDefault(); navigateAndScroll('/'); }}
               className="relative text-[#E6E6E6] text-sm transition-all duration-300 ease-out hover:text-white hover:scale-105 group overflow-hidden"
             >
               <span className="relative z-10">Home</span>
               <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[#00F0FF] via-[#5200FF] to-[#FF2DF7] transition-all duration-300 group-hover:w-full"></div>
             </a>
             <a
-              href="#about"
+              href="/about"
+              onClick={(e) => { e.preventDefault(); navigateAndScroll('/', 'about'); }}
               className="relative text-[#E6E6E6] text-sm transition-all duration-300 ease-out hover:text-white hover:scale-105 group overflow-hidden"
             >
               <span className="relative z-10">About Us</span>
               <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[#00F0FF] via-[#5200FF] to-[#FF2DF7] transition-all duration-300 group-hover:w-full"></div>
             </a>
             <a
-              href="#services"
+              href="/services"
+              onClick={(e) => { e.preventDefault(); navigateAndScroll('/', 'services'); }}
               className="relative text-[#E6E6E6] text-sm transition-all duration-300 ease-out hover:text-white hover:scale-105 group overflow-hidden"
             >
               <span className="relative z-10">Services</span>
               <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[#00F0FF] via-[#5200FF] to-[#FF2DF7] transition-all duration-300 group-hover:w-full"></div>
             </a>
             <a
-              href="#portfolio"
+              href="/portfolio"
+              onClick={(e) => { e.preventDefault(); navigateAndScroll('/', 'portfolio'); }}
               className="relative text-[#E6E6E6] text-sm transition-all duration-300 ease-out hover:text-white hover:scale-105 group overflow-hidden"
             >
               <span className="relative z-10">Portfolio</span>
@@ -59,7 +79,8 @@ const Footer = () => {
               <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[#00F0FF] via-[#5200FF] to-[#FF2DF7] transition-all duration-300 group-hover:w-full"></div>
             </a>
             <a
-              href="#contact"
+              href="/contact"
+              onClick={(e) => { e.preventDefault(); navigate("/contact"); }}
               className="relative text-[#E6E6E6] text-sm transition-all duration-300 ease-out hover:text-white hover:scale-105 group overflow-hidden"
             >
               <span className="relative z-10">Contact US</span>
