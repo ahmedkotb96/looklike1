@@ -11,5 +11,19 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      // Single Page Apps for GitHub Pages
+      // If a redirect was initiated by 404.html, restore the original route
+      (function() {
+        var l = window.location;
+        if (l.search[1] === '/' ) {
+          var decoded = l.search.slice(1).split('&').map(function(s) {
+            return s.replace(/~and~/g, '&');
+          }).join('?');
+          var target = l.protocol + '//' + l.host + decoded + l.hash;
+          window.history.replaceState(null, null, target);
+        }
+      })();
+    </script>
   </body>
 </html>
