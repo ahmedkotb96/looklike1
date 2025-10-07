@@ -1,14 +1,21 @@
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { X, Menu, ChevronDown } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { X, Menu, ChevronDown, Globe, Search } from "lucide-react";
 import looklikeLogo from "@/assets/looklike_logo.png";
 
 const Navigation = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [language, setLanguage] = useState('en'); // 'en' or 'ar'
   const navigate = useNavigate();
   const location = useLocation();
+
+  const toggleLanguage = () => {
+    setLanguage(prev => (prev === 'en' ? 'ar' : 'en'));
+  };
 
   const serviceItems = [
     {
@@ -16,7 +23,7 @@ const Navigation = () => {
       path: "/social-media-management"
     },
     {
-      title: "Branding Service",
+      title: "Branding & Identity Design",
       path: "/branding_identity_design"
     },
     {
@@ -28,6 +35,34 @@ const Navigation = () => {
       path: "/outdoor-advertising"
     }
   ];
+
+  const allSearchableItems: { title: string; path: string; external?: boolean }[] = [
+    { title: "Home", path: "/" },
+    { title: "About Us", path: "/about" },
+    ...serviceItems.map(item => ({
+      title: item.title,
+      path: item.path
+    })),
+    { title: "Portfolio", path: "https://www.behance.net/Looklikeadd544", external: true },
+    { title: "Our Team", path: "/team" },
+    { title: "Contact Us", path: "/contact" },
+  ];
+
+  const filteredResults = searchQuery
+    ? allSearchableItems.filter(item =>
+        item.title.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : [];
+
+  const handleSearchNavigation = (path: string, external = false) => {
+    setSearchOpen(false);
+    setSearchQuery("");
+    if (external) {
+      window.open(path, '_blank', 'noopener,noreferrer');
+    } else {
+      handleNavigate(path);
+    }
+  };
 
   const handleNavigate = (path: string) => {
     navigate(path);
@@ -134,7 +169,6 @@ const Navigation = () => {
                       <a
                         key={item.path}
                         href={item.path}
-                        // Font size reduced to text-sm for a more compact look
                         className={`group block px-4 py-3 text-sm text-white/90 hover:bg-white/10 transition-colors duration-200 ${
                           location.pathname === item.path ? 'text-blue-300 font-medium bg-white/10' : 'font-normal'
                         }`}
@@ -144,7 +178,9 @@ const Navigation = () => {
                         }}
                       >
                         <div className="flex items-center justify-between">
-                          <span className="group-hover:text-blue-300 transition-colors duration-200">{item.title}</span>
+                          <span className="group-hover:text-blue-300 transition-colors duration-200">
+                            {item.title}
+                          </span>
                           <div className="w-2 h-2 rounded-full bg-blue-400 opacity-0 group-hover:opacity-100 transition-all duration-200 group-hover:scale-110"></div>
                         </div>
                       </a>
@@ -177,6 +213,70 @@ const Navigation = () => {
               onClick={() => handleNavigate("/contact")}
             >
               Contact Us
+            </Button>
+
+            <div className="relative ml-2">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="text-white hover:bg-white/10 rounded-full"
+                onClick={() => setSearchOpen(true)}
+              >
+                <Search className="h-5 w-5" />
+              </Button>
+              {searchOpen && (
+                <>
+                  <div className="fixed inset-0 bg-black/30 z-50" onClick={() => setSearchOpen(false)}></div>
+                  <div className="absolute right-0 top-1/2 -translate-y-1/2 w-72 bg-gray-900/80 backdrop-blur-sm rounded-lg p-3 shadow-lg z-50">
+                    <div className="flex items-center border-b border-white/20 pb-2">
+                      <Search className="h-5 w-5 text-gray-400 mr-2" />
+                      <input
+                        type="text"
+                        placeholder="Search..."
+                        className="w-full bg-transparent text-white placeholder-gray-400 focus:outline-none"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        autoFocus
+                      />
+                    </div>
+                    {searchQuery && (
+                      <div className="mt-2 max-h-60 overflow-y-auto">
+                        {filteredResults.length > 0 ? (
+                          filteredResults.map((item, index) => (
+                            <a
+                              key={index}
+                              href={item.path}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                handleSearchNavigation(item.path, !!item.external);
+                              }}
+                              className="block px-4 py-2 text-sm text-white hover:bg-white/10 rounded"
+                            >
+                              {item.title}
+                            </a>
+                          ))
+                        ) : (
+                          <p className="px-4 py-2 text-sm text-gray-400">No results found</p>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </>
+              )}
+            </div>
+
+            <Button
+              variant="ghost"
+              className="relative group flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm hover:bg-white/10 hover:border-white/40 transition-all duration-300"
+              onClick={toggleLanguage}
+              aria-label="Toggle language"
+            >
+              <Globe className="h-4 w-4 text-white/90 group-hover:text-white group-hover:rotate-180 transition-all duration-500" />
+              <span className="text-sm font-medium text-white/90 group-hover:text-white transition-colors">
+                {language === 'en' ? 'عربي' : 'EN'}
+              </span>
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
+              <div className="absolute -inset-[1px] rounded-full bg-gradient-to-r from-blue-500/40 to-purple-500/40 opacity-0 group-hover:opacity-100 blur-sm transition-opacity duration-300 -z-10" />
             </Button>
           </div>
 
@@ -270,7 +370,9 @@ const Navigation = () => {
                             onClick={(e) => { e.preventDefault(); handleNavigate(item.path); }}
                           >
                             <div className="flex items-center justify-end">
-                              <span className="group-hover:text-blue-300 transition-colors duration-300">{item.title}</span>
+                              <span className="group-hover:text-blue-300 transition-colors duration-300">
+                                {item.title}
+                              </span>
                               <div className="w-1.5 h-1.5 rounded-full bg-blue-400/70 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110 ml-3"></div>
                             </div>
                           </a>
