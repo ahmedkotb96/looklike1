@@ -7,6 +7,8 @@ import ContactSection from "@/components/LandingPage/ContactSection";
 import { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/firebase";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/utils/translations";
 
 // Interface for a single media item
 interface MediaItem {
@@ -27,6 +29,8 @@ const getYouTubeEmbedUrl = (url: string): string => {
 };
 
 export default function MediaProduction() {
+  const { language } = useLanguage();
+  const t = translations[language];
   // State to hold media items fetched from Firebase
   const [mediaItems, setMediaItems] = useState<MediaItem[]>([]);
 
@@ -39,7 +43,7 @@ export default function MediaProduction() {
           const data = doc.data();
           return {
             id: doc.id,
-            title: data.title || "Looklike Production Video", // Fallback title
+            title: data.title || t.services.mediaProduction.fallbackTitle, // Fallback title
             mediaUrl: data.mediaUrl,
           };
         });
@@ -56,7 +60,7 @@ export default function MediaProduction() {
   const staticItems: MediaItem[] = [
     {
       id: "static-1",
-      title: "Looklike YouTube Video 1",
+      title: t.services.mediaProduction.staticVideoTitle,
       mediaUrl: "https://www.youtube.com/embed/gEhJqwWNhhQ",
     },
 
@@ -110,21 +114,15 @@ export default function MediaProduction() {
           <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
             {/* Left Content */}
             <div className="flex flex-col items-start gap-6 lg:w-1/2 text-center lg:text-left">
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-black font-['DM_Sans'] leading-tight">
-                <span className="text-white">Media </span>
+              <h1 className={`text-4xl md:text-6xl lg:text-7xl font-black font-['DM_Sans'] leading-tight ${language === 'ar' ? 'text-right' : 'text-left'}`}>
+                <span className="text-white">{t.services.mediaProduction.title.part1} </span>
                 <span className="bg-gradient-to-r from-[#00F0FF] via-[#5200FF] to-[#FF2DF7] bg-clip-text text-transparent">
-                  Production
+                  {t.services.mediaProduction.title.part2}
                 </span>
               </h1>
 
-              <p className="text-white/80 text-lg leading-relaxed">
-                We bring your brand's story to life through high-quality media
-                production. Whether it's a promotional video, professional
-                photography, or eye-catching motion graphics, our production
-                team delivers stunning visuals that captivate your audience.
-                From concept and scripting to filming and post-production, we
-                ensure every frame reflects your brand's vision and
-                professionalism.
+              <p className={`text-white/80 text-lg leading-relaxed ${language === 'ar' ? 'text-right' : 'text-left'}`}>
+                {t.services.mediaProduction.description}
               </p>
 
               <GetInTouchButton />
@@ -147,10 +145,10 @@ export default function MediaProduction() {
         <section className="relative z-40 max-w-7xl mx-auto px-5 pb-16 lg:pb-24">
           {/* Section Heading */}
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-black font-['DM_Sans'] leading-tight">
-              <span className="text-white">Our Work in </span>
+            <h2 className={`text-4xl md:text-5xl font-black font-['DM_Sans'] leading-tight ${language === 'ar' ? 'text-right' : 'text-left'}`}>
+              <span className="text-white">{t.services.mediaProduction.showcase.title.part1} </span>
               <span className="bg-gradient-to-r from-[#00F0FF] via-[#5200FF] to-[#FF2DF7] bg-clip-text text-transparent">
-                Motion
+                {t.services.mediaProduction.showcase.title.part2}
               </span>
             </h2>
           </div>
@@ -177,15 +175,13 @@ export default function MediaProduction() {
 
           {/* Description and Explore More */}
           <div className="text-center relative z-50 mt-16 sm:mt-20 md:mt-24">
-            <p className="text-white font-inter text-lg sm:text-xl md:text-2xl lg:text-[24px] font-normal leading-relaxed sm:leading-relaxed md:leading-relaxed lg:leading-[34px] max-w-full sm:max-w-[600px] md:max-w-[717px] mx-auto mb-6 sm:mb-8 px-4">
-              We bring stories to life with cinematic quality and creative
-              passion. Every frame is crafted to captivate, engage, and deliver
-              your message with impact. Explore more of our work in motion.
+            <p className={`text-white font-inter text-lg sm:text-xl md:text-2xl lg:text-[24px] font-normal leading-relaxed sm:leading-relaxed md:leading-relaxed lg:leading-[34px] max-w-full sm:max-w-[600px] md:max-w-[717px] mx-auto mb-6 sm:mb-8 px-4 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
+              {t.services.mediaProduction.showcase.description}
             </p>
 
             <button className="flex mx-auto px-4 sm:px-[15px] py-2 sm:py-[6px] justify-center items-center gap-2 sm:gap-[10px] rounded-[10px] border border-white/15 bg-gray-500/40 backdrop-blur-[7px] shadow-[0px_0px_6px_3px_rgba(255,255,255,0.25)_inset] hover:bg-gray-500/50 hover:scale-105 hover:shadow-xl transition-all duration-300 group">
               <span className="text-white font-inter text-sm sm:text-[14px] font-normal leading-[26px] tracking-[-0.001px] group-hover:text-white/95 transition-colors duration-300">
-                Explore More
+                {t.services.mediaProduction.showcase.button}
               </span>
             </button>
           </div>

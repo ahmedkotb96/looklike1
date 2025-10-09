@@ -13,6 +13,8 @@ import ContactSection from "./ContactSection";
 import { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/firebase";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/utils/translations";
 
 interface BrandingItem {
   id: string;
@@ -22,6 +24,8 @@ interface BrandingItem {
 }
 
 export default function Index() {
+  const { language } = useLanguage();
+  const t = translations[language];
   const [brandingItems, setBrandingItems] = useState<BrandingItem[]>([]);
 
   useEffect(() => {
@@ -43,45 +47,27 @@ export default function Index() {
     fetchBrandingItems();
   }, []);
 
-  const staticItems: BrandingItem[] = [
-    {
-      id: "centromall",
-      name: "Centro Mall Brand Identity",
-      description: "Modern. Simple. Family vibes",
-      image: centromallIdentity,
-    },
-    {
-      id: "ihome",
-      name: "i home Brand Identity",
-      description:
-        "a sleek, modern identity that brings out i home's unique style",
-      image: ihomeIdentity,
-    },
-    {
-      id: "zodiac",
-      name: "Zodiac Brand Identity",
-      description: "inspired by cosmic energy and timeless elegance",
-      image: zodiacIdentity,
-    },
-    {
-      id: "cinnarolls",
-      name: "CinnaRolls Brand Identity",
-      description: "A soft, sweet, and stylish brand.",
-      image: cinnarollsIdentity,
-    },
-    {
-      id: "elmassa",
-      name: "Elmassa Brand Identity",
-      description: "Sharp. Elegant. Confident. A brand that leads by design.",
-      image: elmassaIdentity,
-    },
-    {
-      id: "aamen",
-      name: "Aamen Brand Identity",
-      description: "Simple. Safe. Smart. Designed by Looklike for AAMEN.",
-      image: aemenIdentity,
-    },
-  ];
+  const staticItems: BrandingItem[] = t.services.brandingIdentityDesign.staticItems.map((item: { id: string; name: string; description: string }) => ({
+    ...item,
+    image: (() => {
+      switch (item.id) {
+        case "centromall":
+          return centromallIdentity;
+        case "ihome":
+          return ihomeIdentity;
+        case "zodiac":
+          return zodiacIdentity;
+        case "cinnarolls":
+          return cinnarollsIdentity;
+        case "elmassa":
+          return elmassaIdentity;
+        case "aamen":
+          return aemenIdentity;
+        default:
+          return "";
+      }
+    })(),
+  }));
 
   const allItems = [...staticItems, ...brandingItems];
 
@@ -146,25 +132,20 @@ export default function Index() {
         <Navigation />
 
         {/* Hero Section */}
-        <section className="relative z-10 flex flex-col lg:flex-row items-center justify-between px-4 sm:px-6 md:px-8 lg:px-8 py-16 sm:py-20 md:py-28 pb-8 sm:pb-12 md:pb-16 max-w-7xl mx-auto">
+        <section className={`relative z-10 flex flex-col lg:flex-row items-center justify-between px-4 sm:px-6 md:px-8 lg:px-8 py-16 sm:py-20 md:py-28 pb-8 sm:pb-12 md:pb-16 max-w-7xl mx-auto ${language === 'ar' ? 'lg:flex-row-reverse' : ''}`}>
           <div className="flex flex-col items-start gap-4 max-w-full lg:max-w-[612px] mb-8 lg:mb-0">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[96px] font-dm-sans font-black leading-tight sm:leading-tight md:leading-tight lg:leading-tight xl:leading-[95px]">
-              <span className="text-white">Brand </span>
+            <h1 className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[96px] font-dm-sans font-black leading-tight sm:leading-tight md:leading-tight lg:leading-tight xl:leading-[95px] ${language === 'ar' ? 'text-right' : 'text-left'}`}>
+              <span className="text-white">{t.services.brandingIdentityDesign.title.part1} </span>
               <span className="bg-[linear-gradient(267deg,_#00F0FF_4.01%,_#5200FF_57.55%,_#FF2DF7_114.97%)] bg-clip-text text-transparent">
-                Identity &
+                {t.services.brandingIdentityDesign.title.part2}
               </span>
               <span className="bg-[linear-gradient(267deg,_#00F0FF_4.01%,_#5200FF_57.55%,_#FF2DF7_114.97%)] bg-clip-text text-transparent">
                 {" "}
-                Design
+                {t.services.brandingIdentityDesign.title.part3}
               </span>
             </h1>
-            <p className="text-white font-inter text-sm sm:text-base md:text-lg lg:text-[17px] font-normal leading-relaxed sm:leading-relaxed md:leading-relaxed lg:leading-[24px] max-w-full lg:max-w-[579px] mt-4">
-              Your brand identity is what makes you stand out. We craft visual
-              identities that capture the essence of your business and ensure
-              consistency across all media. Our design team creates everything
-              from memorable logos and comprehensive brand guidelines to
-              compelling company profiles and eye-catching digital designs, all
-              tailored to make your brand instantly recognizable and impactful.
+            <p className={`text-white font-inter text-sm sm:text-base md:text-lg lg:text-[17px] font-normal leading-relaxed sm:leading-relaxed md:leading-relaxed lg:leading-[24px] max-w-full lg:max-w-[579px] mt-4 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
+              {t.services.brandingIdentityDesign.description}
             </p>
             <a
               href="https://wa.me/201022668840"
@@ -178,7 +159,7 @@ export default function Index() {
                 </div>
 
                 <span className="relative text-white text-base font-medium mr-3 group-hover:text-white/95 transition-colors duration-300">
-                  Get In Touch !
+                  {t.services.brandingIdentityDesign.getInTouch}
                 </span>
                 <svg
                   className="relative w-5 h-4 text-white group-hover:translate-x-2 group-hover:scale-110 transition-all duration-500 ease-out"
@@ -261,16 +242,14 @@ export default function Index() {
           </div>
 
           {/* Description and Explore More */}
-          <div className="text-center relative z-50">
+          <div className={`text-center relative z-50 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
             <p className="text-white font-inter text-lg sm:text-xl md:text-2xl lg:text-[24px] font-normal leading-relaxed sm:leading-relaxed md:leading-relaxed lg:leading-[34px] max-w-full sm:max-w-[600px] md:max-w-[717px] mx-auto mb-6 sm:mb-8 px-4">
-              At Looklike, we craft every brand with attention to the smallest
-              detail — from the logo to the colors and tone of voice. Explore
-              more of our visual identity projects.
+              {t.services.brandingIdentityDesign.footerDescription}
             </p>
 
             <button className="flex mx-auto px-4 sm:px-[15px] py-2 sm:py-[6px] justify-center items-center gap-2 sm:gap-[10px] rounded-[10px] border border-white/15 bg-gray-500/40 backdrop-blur-[7px] shadow-[0px_0px_6px_3px_rgba(255,255,255,0.25)_inset] hover:bg-gray-500/50 hover:scale-105 hover:shadow-xl transition-all duration-300 group">
               <span className="text-white font-inter text-sm sm:text-[14px] font-normal leading-[26px] tracking-[-0.001px] group-hover:text-white/95 transition-colors duration-300">
-                Explore More
+                {t.services.brandingIdentityDesign.exploreMore}
               </span>
             </button>
           </div>
