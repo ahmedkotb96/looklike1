@@ -57,28 +57,28 @@ const PortfolioSection = () => {
     {
       id: "2",
       title: "Elmassa",
-      description: "Developed a refined and modern brand identity that reflects luxury, trust, and elegance. The design captures the brand's premium positioning through a sophisticated logo, elegant typography, and a timeless color palette. This comprehensive brand system ensures consistency across all touchpoints while maintaining the sophisticated aesthetic that defines the Elmassa experience.",
+      description: t.portfolio.elmassaProject,
       image: elmassaBrandIdentity,
       logo: "",
     },
     {
       id: "3",
       title: "Zodiac",
-      description: "We developed a bold and professional visual identity for Zodiac, capturing the essence of trust, growth, and real estate expertise. The design reflects the brand's ambition to lead in the property marketing sector.",
+      description: t.portfolio.zodiacProject,
       image: zodiacBrandIdentity,
       logo: "",
     },
     {
       id: "4",
       title: "CinnaRolls",
-      description: "We developed a bold and professional visual identity for CinnaRolls, capturing the warmth and comfort of freshly baked goods. The design combines playful elements with professional execution, creating a brand that feels both approachable and premium. Our comprehensive approach included logo design, packaging concepts, and brand guidelines that reflect the artisanal quality and delicious experience that CinnaRolls represents.",
+      description: t.portfolio.cinnarollsProject,
       image: cinnarollsBrandIdentity,
       logo: "",
     },
     {
       id: "5",
       title: "Centro Mall",
-      description: "Modern and clean brand identity for Centro Mall, reflecting the brand's focus on family shopping and contemporary retail experience.",
+      description: t.portfolio.centromallProject,
       image: centromallBrandIdentity,
       logo: "",
     },
@@ -150,14 +150,10 @@ const PortfolioSection = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16 max-w-4xl mx-auto">
           <h2 className="text-white text-4xl md:text-5xl font-bold mb-4 leading-tight">
-            Check Our
-            <br />
-            Last Work
+            {t.portfolio.title}
           </h2>
           <p className="text-white text-lg">
-            Take a look at our latest projects where creativity
-            <br />
-            meets strategy.
+            {t.portfolio.subtitle}
           </p>
         </div>
 
@@ -239,7 +235,7 @@ const PortfolioSection = () => {
                           }))}
                           className="text-white/70 hover:text-white text-sm font-medium mt-2 transition-colors"
                         >
-                          {expandedDescriptions[currentProject] ? 'See less' : 'See more'}
+                          {expandedDescriptions[currentProject] ? t.services.seeLess : t.services.seeMore}
                         </button>
                       )}
                     </div>

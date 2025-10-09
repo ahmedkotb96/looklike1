@@ -239,6 +239,7 @@ export interface Translation {
       exploreMore: string;
     };
     seeMore: string;
+    seeLess: string;
   };
   ourTeamMain: {
     title: {
@@ -264,6 +265,10 @@ export interface Translation {
     title: string;
     subtitle: string;
     ihomeProject: string;
+    elmassaProject: string;
+    zodiacProject: string;
+    cinnarollsProject: string;
+    centromallProject: string;
   };
   team: {
     title: string;
