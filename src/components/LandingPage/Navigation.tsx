@@ -403,6 +403,16 @@ const Navigation = () => {
                     </div>
                   </a>
                   <div className="p-0 pt-2">
+                    <button
+                      onClick={toggleLanguage}
+                      className="group w-full flex items-center justify-end gap-3 text-white/90 text-lg py-4 px-4 rounded-2xl hover:bg-white/10 border border-transparent hover:border-white/20 transition-all duration-300 hover:transform hover:translate-x-1 mb-4"
+                    >
+                      <span className="group-hover:text-blue-300 transition-colors duration-300">
+                        {language === 'en' ? 'عربي' : 'EN'}
+                      </span>
+                      <Globe className="h-5 w-5 text-white/90 group-hover:text-blue-300 group-hover:rotate-180 transition-all duration-500" />
+                      <div className="w-2 h-2 rounded-full bg-orange-400 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110"></div>
+                    </button>
                     <div className="relative">
                       <Button
                         className="w-full bg-gradient-to-r from-[#1225B9] to-blue-600 hover:from-[#1225B9]/90 hover:to-blue-600/90 text-white px-4 py-3 rounded-2xl text-[1rem] font-semibold shadow-xl hover:shadow-2xl transform hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300 border border-blue-400/20 min-h-0 min-w-0"
