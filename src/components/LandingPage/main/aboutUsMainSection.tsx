@@ -15,9 +15,13 @@ import zodiac from "@/assets/previous_customers/zodiac.webp";
 import aboutUsImg from "@/assets/decoration/about_us.webp";
 import astronautImg from "@/assets/astronaut.webp";
 import bottomEclipse from "@/assets/ellipse_bottom.webp";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/utils/translations";
 
-export default function Index() {
+export default function AboutUsMainSection() {
   const navigate = useNavigate();
+  const { language } = useLanguage();
+  const t = translations[language];
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
 
   const toggleSection = (section: string) => {
@@ -92,9 +96,9 @@ export default function Index() {
                  lineHeight: 'clamp(34px, 8.5vw, 67.686px)',
                }}
              >
-              <span className="text-white">Innovative Ideas.</span>{" "}
-              <span className="bg-[linear-gradient(90deg,_#1225B9_0%,_#DE19BA_100%)] bg-clip-text text-transparent">Outstanding</span>{" "}
-              <span className="bg-[linear-gradient(90deg,_#1225B9_0%,_#DE19BA_100%)] bg-clip-text text-transparent">Results.</span>
+              <span className="text-white">{t.aboutUsMain.hero.title.innovative}</span>{" "}
+              <span className="bg-[linear-gradient(90deg,_#1225B9_0%,_#DE19BA_100%)] bg-clip-text text-transparent">{t.aboutUsMain.hero.title.outstanding}</span>{" "}
+              <span className="bg-[linear-gradient(90deg,_#1225B9_0%,_#DE19BA_100%)] bg-clip-text text-transparent">{t.aboutUsMain.hero.title.results}</span>
             </h1>
             <p
               className="text-white text-lg leading-relaxed mb-8 max-w-xl"
@@ -106,13 +110,7 @@ export default function Index() {
                 lineHeight: '24.086px',
               }}
             >
-              Welcome to Look Like Advertising & Marketing – your trusted
-              partner for innovative and results-driven advertising solutions in
-              the UAE. We specialize in crafting creative campaigns that don't
-              just look good, but also deliver real impact. By blending
-              strategic thinking with bold creativity, we help brands stand out,
-              connect deeply with their audience, and grow stronger in a
-              competitive market. Whether you're launching,
+              {t.aboutUsMain.hero.description}
             </p>
             <a href="https://wa.me/201022668840" target="_blank" rel="noopener noreferrer">
               <Button className="relative px-8 py-4 bg-white/10 border border-white/20 rounded-xl backdrop-blur-[10px] hover:bg-white/25 hover:border-white/30 active:bg-white/30 transition-all duration-500 ease-out shadow-[0px_0px_8px_4px_rgba(255,255,255,0.15)_inset] hover:shadow-[0px_0px_20px_8px_rgba(255,255,255,0.25)_inset,0px_8px_32px_rgba(255,255,255,0.2)] hover:scale-105 active:scale-95 group overflow-hidden">
@@ -120,7 +118,7 @@ export default function Index() {
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
                 </div>
-                <span className="relative text-white text-base font-medium mr-3 group-hover:text-white/95 transition-colors duration-300">Get In Touch !</span>
+                <span className="relative text-white text-base font-medium mr-3 group-hover:text-white/95 transition-colors duration-300">{t.aboutUsMain.hero.button}</span>
                 <svg
                   className="relative w-5 h-4 text-white group-hover:translate-x-2 group-hover:scale-110 transition-all duration-500 ease-out"
                   fill="currentColor"
@@ -145,22 +143,21 @@ export default function Index() {
 
       {/* Trusted Companies */}
       <section className="relative z-10 max-w-7xl mx-auto px-5 py-16">
-        <h2
-          className="text-xl font-bold text-center text-white mb-10"
-          style={{
-            color: '#FFF',
-            textAlign: 'center',
-            fontFamily: 'Inter',
-            fontSize: '20.923px',
-            fontStyle: 'normal',
-            fontWeight: 700,
-            lineHeight: '34px',
-            letterSpacing: '-0.002px',
-          }}
-        >
-          Trusted by most innovative Companies
-        </h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 px-4 md:px-16">
+                  <h2
+                  className="text-xl font-bold text-center text-white mb-10"
+                  style={{
+                    color: '#FFF',
+                    textAlign: 'center',
+                    fontFamily: 'Inter',
+                    fontSize: '20.923px',
+                    fontStyle: 'normal',
+                    fontWeight: 700,
+                    lineHeight: '34px',
+                    letterSpacing: '-0.002px',
+                  }}
+                >
+                  {t.aboutUsMain.companies.title}
+                </h2>        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 px-4 md:px-16">
           {[
             al_rehab_development,
             babel,
@@ -197,7 +194,7 @@ export default function Index() {
               className="group flex items-center justify-between w-full text-left p-4 -m-4 rounded-xl transition-all duration-300 hover:bg-white/[0.03]"
             >
               <h2 className="text-3xl font-normal text-white transition-colors duration-300 group-hover:bg-gradient-to-r from-blue-600 to-pink-500 bg-clip-text group-hover:text-transparent">
-                Our Story
+                {t.aboutUsMain.sections.story.title}
               </h2>
               <div className="flex items-center justify-center w-12 h-12 rounded-full border border-white/50 transition-all duration-300 group-hover:border-white group-hover:bg-white/10 group-hover:scale-105">
                 <svg
@@ -214,14 +211,7 @@ export default function Index() {
             {expandedSection === "story" && (
               <div className="mt-6 text-white/80 leading-relaxed pl-4">
                 <p>
-                  Look Like Advertising & Marketing was founded with a vision to
-                  transform how brands connect with their audiences. Our journey
-                  began with a simple belief: that great advertising should not
-                  only look exceptional but also deliver measurable results.
-                  Over the years, we've grown from a small creative team to a
-                  full-service marketing agency, helping countless businesses
-                  across the UAE achieve their goals through innovative
-                  campaigns and strategic thinking.
+                  {t.aboutUsMain.sections.story.content}
                 </p>
               </div>
             )}
@@ -234,7 +224,7 @@ export default function Index() {
               className="group flex items-center justify-between w-full text-left p-4 -m-4 rounded-xl transition-all duration-300 hover:bg-white/[0.03]"
             >
               <h2 className="text-3xl font-normal text-white transition-colors duration-300 group-hover:bg-gradient-to-r from-blue-600 to-pink-500 bg-clip-text group-hover:text-transparent">
-                Our Vision
+                {t.aboutUsMain.sections.vision.title}
               </h2>
               <div className="flex items-center justify-center w-12 h-12 rounded-full border border-white/50 transition-all duration-300 group-hover:border-white group-hover:bg-white/10 group-hover:scale-105">
                 <svg
@@ -251,14 +241,7 @@ export default function Index() {
             {expandedSection === "vision" && (
               <div className="mt-6 text-white/80 leading-relaxed pl-4">
                 <p>
-                  To become the leading creative force in the Middle East,
-                  setting new standards for advertising excellence and
-                  innovation. We envision a future where every brand we touch
-                  becomes a market leader, powered by our creative insights and
-                  strategic expertise. Our vision extends beyond traditional
-                  advertising – we aim to create cultural movements that
-                  resonate with audiences and drive meaningful change in the
-                  marketplace.
+                  {t.aboutUsMain.sections.vision.content}
                 </p>
               </div>
             )}
@@ -271,7 +254,7 @@ export default function Index() {
               className="group flex items-center justify-between w-full text-left p-4 -m-4 rounded-xl transition-all duration-300 hover:bg-white/[0.03]"
             >
               <h2 className="text-3xl font-normal text-white transition-colors duration-300 group-hover:bg-gradient-to-r from-blue-600 to-pink-500 bg-clip-text group-hover:text-transparent">
-                Our Mission
+                {t.aboutUsMain.sections.mission.title}
               </h2>
               <div className="flex items-center justify-center w-12 h-12 rounded-full border border-white/50 transition-all duration-300 group-hover:border-white group-hover:bg-white/10 group-hover:scale-105">
                 <svg
@@ -288,14 +271,7 @@ export default function Index() {
             {expandedSection === "mission" && (
               <div className="mt-6 text-white/80 leading-relaxed pl-4">
                 <p>
-                  Our mission is to empower businesses through creative
-                  excellence and strategic marketing solutions. We are committed
-                  to understanding each client's unique challenges and
-                  opportunities, crafting bespoke campaigns that drive growth
-                  and build lasting relationships with their target audiences.
-                  Through innovative thinking, cutting-edge technology, and
-                  passionate execution, we transform brands and help them
-                  achieve their full potential in an ever-evolving marketplace.
+                  {t.aboutUsMain.sections.mission.content}
                 </p>
               </div>
             )}
@@ -317,14 +293,14 @@ export default function Index() {
               <div className="absolute inset-0  rounded-3xl flex items-end justify-start">
                 <div className="text-left p-6 m-4 rounded-2xl border border-white/20 shadow-2xl" style={{ background: 'rgba(16, 16, 16, 0.32)', backdropFilter: 'blur(7.137087345123291px)' }}>
                   <h3 className="text-xl md:text-2xl font-bold text-white mb-3">
-                    See Our Team
+                    {t.aboutUsMain.whyChooseUs.seeTeam.title}
                   </h3>
                   <div className="text-white/90 text-sm md:text-base font-medium max-w-sm leading-relaxed space-y-0.5 mb-4">
-                    <p>A creative crew of</p>
-                    <p>marketers, designers,</p>
-                    <p>and strategists —</p>
-                    <p>delivering smart,</p>
-                    <p>impactful campaigns.</p>
+                    <p>{t.aboutUsMain.whyChooseUs.seeTeam.description[0]}</p>
+                    <p>{t.aboutUsMain.whyChooseUs.seeTeam.description[1]}</p>
+                    <p>{t.aboutUsMain.whyChooseUs.seeTeam.description[2]}</p>
+                    <p>{t.aboutUsMain.whyChooseUs.seeTeam.description[3]}</p>
+                    <p>{t.aboutUsMain.whyChooseUs.seeTeam.description[4]}</p>
                   </div>
                   <div className="flex justify-center">
                     <Button
@@ -345,11 +321,11 @@ export default function Index() {
             </div>
             <div className="flex-1 max-w-2xl">
               <h2 className="text-4xl lg:text-5xl font-bold mb-8">
-                <span className="text-white">Why Choose Us for Your </span>
+                <span className="text-white">{t.aboutUsMain.whyChooseUs.heading.part1} </span>
                 <span className="bg-gradient-to-r from-blue-600 to-pink-500 bg-clip-text text-transparent">
-                  Marketing
+                  {t.aboutUsMain.whyChooseUs.heading.part2}
                 </span>
-                <span className="text-white"> Needs?</span>
+                <span className="text-white"> {t.aboutUsMain.whyChooseUs.heading.part3}</span>
               </h2>
               <p
                 className="text-white/80 text-lg leading-relaxed mb-8"
@@ -363,11 +339,7 @@ export default function Index() {
                   lineHeight: '150%',
                 }}
               >
-                At Looklike, we don't just market — we build success stories.
-                With a mix of creativity, experience, and market insight, we
-                craft powerful campaigns tailored to each brand. Our team is
-                dedicated to delivering real results through smart, impactful
-                advertising and marketing solutions.
+                {t.aboutUsMain.whyChooseUs.description}
               </p>
               <div className="grid grid-cols-2 gap-6">
                 <div className="space-y-4">
@@ -383,7 +355,7 @@ export default function Index() {
                         lineHeight: 'normal',
                       }}
                     >
-                      Creative Expertise
+                      {t.aboutUsMain.whyChooseUs.features[0]}
                     </h3>
                   </div>
                   <div className="flex items-start gap-3">
@@ -398,7 +370,7 @@ export default function Index() {
                         lineHeight: 'normal',
                       }}
                     >
-                      Integrated Services
+                      {t.aboutUsMain.whyChooseUs.features[1]}
                     </h3>
                   </div>
                 </div>
@@ -415,7 +387,7 @@ export default function Index() {
                         lineHeight: 'normal',
                       }}
                     >
-                      Results-Driven
+                      {t.aboutUsMain.whyChooseUs.features[2]}
                     </h3>
                   </div>
                   <div className="flex items-start gap-3">
@@ -430,7 +402,7 @@ export default function Index() {
                         lineHeight: 'normal',
                       }}
                     >
-                      Centric Approach
+                      {t.aboutUsMain.whyChooseUs.features[3]}
                     </h3>
                   </div>
                 </div>

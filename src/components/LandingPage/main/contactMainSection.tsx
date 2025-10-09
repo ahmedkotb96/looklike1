@@ -7,6 +7,8 @@ import bottomEclipse from "@/assets/ellipse_bottom.webp";
 import looklikeLogo from "@/assets/looklike_logo.png";
 import { useState, useEffect } from "react";
 import emailjs from '@emailjs/browser';
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/utils/translations";
 
 const Footer = () => {
   const navigate = useNavigate();
@@ -113,6 +115,8 @@ const Footer = () => {
 };
 
 const ContactSection = () => {
+  const { language } = useLanguage();
+  const t = translations[language];
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
@@ -148,12 +152,12 @@ const ContactSection = () => {
       );
       
       if (result.status === 200) {
-        setSuccess("Thank you for reaching out! We'll be in touch soon.");
+        setSuccess(t.contactUsMain.form.success);
         setForm({ name: '', email: '', message: '' });
       }
     } catch (error) {
       console.error('EmailJS Error:', error);
-      setSuccess("Sorry, there was an error sending your message. Please try again.");
+      setSuccess(t.contactUsMain.form.error);
     } finally {
       setLoading(false);
     }
@@ -180,20 +184,16 @@ const ContactSection = () => {
           <div className="container mx-auto px-4 relative z-20">
             <div className="text-center max-w-6xl mx-auto">
               <h2 className="text-4xl md:text-5xl lg:text-[65px] lg:leading-tight font-bold mb-6 md:mb-8 text-white">
-                Why Choose Us for
+                {t.contactUsMain.title.part1}
                 <br />
-                Your{" "}
+                {t.contactUsMain.title.part2}{" "}
                 <span className="bg-gradient-to-r from-[#142EF5] to-[#F41CCC] bg-clip-text text-transparent">
-                  Marketing
+                  {t.contactUsMain.title.part3}
                 </span>{" "}
-                Needs?
+                {t.contactUsMain.title.part4}
               </h2>
               <p className="text-white text-lg md:text-xl lg:text-[25px] lg:leading-[38px] max-w-5xl mx-auto font-medium">
-                At Looklike, we don't just market — we build success stories. With a
-                mix of creativity, experience, and market insight, we craft powerful
-                campaigns tailored to each brand. Our team is dedicated to
-                delivering real results through smart, impactful advertising and
-                marketing solutions.
+                {t.contactUsMain.description}
               </p>
             </div>
           </div>
@@ -204,9 +204,9 @@ const ContactSection = () => {
             <div className="bg-white/5 border border-white/20 rounded-2xl backdrop-blur-[10px] p-6 md:p-10 shadow-lg">
               {/* Introductory text for the contact form */}
               <div className="mb-6 text-center">
-                <h3 className="text-2xl font-semibold text-white mb-2">Get in Touch</h3>
+                <h3 className="text-2xl font-semibold text-white mb-2">{t.contactUsMain.form.title}</h3>
                 <p className="text-white/80 text-base md:text-lg max-w-2xl mx-auto">
-                  Interested in elevating your brand or have a business inquiry? Complete the form below, and our team will connect with you to discuss how we can help achieve your marketing goals.
+                  {t.contactUsMain.form.description}
                 </p>
               </div>
               {/* Feedback messages */}
@@ -215,12 +215,12 @@ const ContactSection = () => {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="name" className="sr-only">Name</label>
+                    <label htmlFor="name" className="sr-only">{t.contactUsMain.form.name}</label>
                     <Input
                       type="text"
                       name="name"
                       id="name"
-                      placeholder="Your Name"
+                      placeholder={t.contactUsMain.form.name}
                       className="bg-black/20 border-white/30 text-white placeholder:text-white/70 focus:border-[#F41CCC] focus:ring-[#F41CCC] rounded-lg w-full transition-colors duration-300 py-6"
                       value={form.name}
                       onChange={handleChange}
@@ -228,13 +228,13 @@ const ContactSection = () => {
                     />
                   </div>
                   <div>
-                    <label htmlFor="email" className="sr-only">Email</label>
+                    <label htmlFor="email" className="sr-only">{t.contactUsMain.form.email}</label>
                     <Input
              
              type="email"
                       name="email"
                       id="email"
-                      placeholder="Your Email"
+                      placeholder={t.contactUsMain.form.email}
                       className="bg-black/20 border-white/30 text-white placeholder:text-white/70 focus:border-[#142EF5] focus:ring-[#142EF5] rounded-lg w-full transition-colors duration-300 py-6"
                       value={form.email}
                       onChange={handleChange}
@@ -243,12 +243,12 @@ const ContactSection = () => {
                   </div>
                 </div>
                 <div>
-                  <label htmlFor="message" className="sr-only">Message</label>
+                  <label htmlFor="message" className="sr-only">{t.contactUsMain.form.message}</label>
                   <Textarea
                     name="message"
                     id="message"
                     rows={5}
-                    placeholder="Your Message"
+                    placeholder={t.contactUsMain.form.message}
                     className="bg-black/20 border-white/30 text-white placeholder:text-white/70 focus:border-white/50 focus:ring-white/50 rounded-lg w-full transition-colors duration-300"
                     value={form.message}
                     onChange={handleChange}
@@ -261,7 +261,7 @@ const ContactSection = () => {
                     className="relative px-8 py-4 bg-gradient-to-r from-[#142EF5] to-[#F41CCC] text-white font-semibold rounded-xl hover:scale-105 active:scale-95 transition-all duration-300 ease-in-out shadow-[0px_4px_24px_rgba(20,46,245,0.4),_0px_4px_24px_rgba(244,28,204,0.4)] group overflow-hidden w-full md:w-auto"
                     disabled={loading}
                   >
-                    <span className="relative text-lg">{loading ? "Sending..." : "Send Message"}</span>
+                    <span className="relative text-lg">{loading ? t.contactUsMain.form.sending : t.contactUsMain.form.button}</span>
                   </Button>
                 </div>
               </form>
