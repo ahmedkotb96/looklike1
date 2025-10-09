@@ -13,6 +13,8 @@ import ellipseReversed from "@/assets/ellipse_reversed.webp";
 import ContactSection from "./ContactSection";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/firebase";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/utils/translations";
 
 interface SocialMediaItem {
   id: string;
@@ -65,6 +67,8 @@ const RightPinkBlur = () => (
 );
 
 const SocialMediaManagment: React.FC = () => {
+  const { language } = useLanguage();
+  const t = translations[language];
   const [socialMediaItems, setSocialMediaItems] = useState<SocialMediaItem[]>(
     []
   );
@@ -89,57 +93,27 @@ const SocialMediaManagment: React.FC = () => {
     fetchSocialMediaItems();
   }, []);
 
-  const staticItems: SocialMediaItem[] = [
-    {
-      id: "squeeze",
-      name: "Squeeze Social Media Campaign",
-      description: "Fresh, bold, product-driven visuals",
-      image: squeezeImg,
-      behanceLink:
-        "https://www.behance.net/gallery/202140597/SQUUSE-SOCIAL-MEDIA-CAMPAIN",
-    },
-    {
-      id: "cariby2",
-      name: "Cariby Social Media Campaign",
-      description: "Designed to melt attention",
-      image: caribyDairy2Img,
-      behanceLink:
-        "https://www.behance.net/gallery/177043275/cariby-dairy-social-media-campaign",
-    },
-    {
-      id: "qemam",
-      name: "Qemam Social Media Campaign",
-      description: "Architecture meets confident design",
-      image: qemamImg,
-      behanceLink:
-        "https://www.behance.net/gallery/165396653/QIMAM-REALESTATE-LOGO",
-    },
-    {
-      id: "cariby",
-      name: "Cariby Social Media Campaign",
-      description: "Designed to melt attention",
-      image: caribyDairyImg,
-      behanceLink:
-        "https://www.behance.net/gallery/202139479/RATB-ALA-ALBK-SOCIAL-MEDIA-CAMPAIGN",
-    },
-    {
-      id: "dahabia",
-      name: "Dahabia Social Media Campaign",
-      description: "Designed to build appetite",
-      image: dahabiaImg,
-      behanceLink:
-        "https://www.behance.net/gallery/202141925/DAHABIA-NEW-CAMPIAGN",
-    },
-    {
-      id: "altakamol",
-      name: "Takamol Social Media Campaign",
-      description: "Architecture meets confident design",
-      image: alTakamolImg,
-      behanceLink:
-        "https://www.behance.net/gallery/172599549/TAKAMOL-SOCIAL-MEDIA-CAMPAIGN",
-    },
-  ];
-
+  const staticItems: SocialMediaItem[] = t.services.socialMediaManagement.staticItems.map((item: any) => ({
+    ...item,
+    image: (() => {
+      switch (item.id) {
+        case "squeeze":
+          return squeezeImg;
+        case "cariby2":
+          return caribyDairy2Img;
+        case "qemam":
+          return qemamImg;
+        case "cariby":
+          return caribyDairyImg;
+        case "dahabia":
+          return dahabiaImg;
+        case "altakamol":
+          return alTakamolImg;
+        default:
+          return "";
+      }
+    })(),
+  }));
   const allItems = [...staticItems, ...socialMediaItems];
 
   return (
@@ -164,21 +138,16 @@ const SocialMediaManagment: React.FC = () => {
         <Navigation />
 
         {/* Hero Section */}
-        <section className="relative z-10 flex flex-col lg:flex-row items-center justify-between px-4 sm:px-6 md:px-8 lg:px-8 py-16 sm:py-20 md:py-28 pb-8 sm:pb-12 md:pb-16 max-w-7xl mx-auto">
-          <div className="flex flex-col items-start gap-4 max-w-full lg:max-w-[612px] mb-8 lg:mb-0">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[96px] font-dm-sans font-black leading-tight sm:leading-tight md:leading-tight lg:leading-tight xl:leading-[95px]">
-              <span className="text-white">Social Media </span>
+        <section className={`relative z-10 flex flex-col lg:flex-row items-center justify-between px-4 sm:px-6 md:px-8 lg:px-8 py-16 sm:py-20 md:py-28 pb-8 sm:pb-12 md:pb-16 max-w-7xl mx-auto ${language === 'ar' ? 'lg:flex-row-reverse' : ''}`}>
+          <div className={`flex flex-col gap-4 max-w-full lg:max-w-[612px] mb-8 lg:mb-0 ${language === 'ar' ? 'items-end' : 'items-start'}`}>
+            <h1 className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[96px] font-dm-sans font-black leading-tight sm:leading-tight md:leading-tight lg:leading-tight xl:leading-[95px] ${language === 'ar' ? 'text-right' : 'text-left'}`}>
+              <span className="text-white">{t.services.socialMediaManagement.title.part1} </span>
               <span className="bg-[linear-gradient(267deg,_#00F0FF_4.01%,_#5200FF_57.55%,_#FF2DF7_114.97%)] bg-clip-text text-transparent">
-                Management
+                {t.services.socialMediaManagement.title.part2}
               </span>
             </h1>
-            <p className="text-white font-inter text-sm sm:text-base md:text-lg lg:text-[17px] font-normal leading-relaxed sm:leading-relaxed md:leading-relaxed lg:leading-[24px] max-w-full lg:max-w-[579px] mt-4">
-              We manage your platforms with purpose and strategy — creating
-              content that connects, engages, and converts. From planning and
-              copywriting to design and analytics, our team handles every
-              detail to keep your brand active, aligned, and always ahead.
-              Whether you're building awareness or driving sales, we turn your
-              social media into a powerful growth engine.
+            <p className={`text-white font-inter text-sm sm:text-base md:text-lg lg:text-[17px] font-normal leading-relaxed sm:leading-relaxed md:leading-relaxed lg:leading-[24px] max-w-full lg:max-w-[579px] mt-4 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
+              {t.services.socialMediaManagement.description}
             </p>
 
             <a
@@ -192,7 +161,7 @@ const SocialMediaManagment: React.FC = () => {
                 </div>
 
                 <span className="relative text-white text-base font-medium mr-3 group-hover:text-white/95 transition-colors duration-300">
-                  Get In Touch !
+                  {t.services.socialMediaManagement.getInTouch}
                 </span>
                 <svg
                   className="relative w-5 h-4 text-white group-hover:translate-x-2 group-hover:scale-110 transition-all duration-500 ease-out"
@@ -297,17 +266,14 @@ const SocialMediaManagment: React.FC = () => {
             })}
           </div>
 
-          <div className="text-center relative z-50">
-            <p className="text-white text-lg md:text-2xl font-normal font-inter leading-relaxed max-w-3xl mx-auto mb-8">
-              At Looklike, we craft every social media campaign with attention
-              to the smallest detail — from content strategy to visual design
-              and engagement metrics. Explore more of our social media
-              management projects.
+          <div className={`text-center relative z-50`}>
+            <p className={`text-white text-lg md:text-2xl font-normal font-inter leading-relaxed max-w-3xl mx-auto mb-8 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
+              {t.services.socialMediaManagement.portfolio.description}
             </p>
 
             <Button className="relative px-8 py-4 bg-white/10 border border-white/20 rounded-xl backdrop-blur-[10px] hover:bg-white/25 hover:border-white/30 active:bg-white/30 transition-all duration-500 ease-out shadow-[0px_0px_8px_4px_rgba(255,255,255,0.15)_inset] hover:shadow-[0px_0px_20px_8px_rgba(255,255,255,0.25)_inset,0px_8px_32px_rgba(255,255,255,0.2)] hover:scale-105 active:scale-95 group overflow-hidden">
               <span className="relative text-white text-base font-medium mr-3 group-hover:text-white/95 transition-colors duration-300">
-                Explore More
+                {t.services.socialMediaManagement.portfolio.button}
               </span>
             </Button>
           </div>
