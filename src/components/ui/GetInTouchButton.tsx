@@ -1,6 +1,11 @@
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/utils/translations";
 
-const GetInTouchButton = () => (
+const GetInTouchButton = () => {
+  const { language } = useLanguage();
+  const t = translations[language];
+  return (
   <a
     href="https://wa.me/201022668840"
     target="_blank"
@@ -11,7 +16,7 @@ const GetInTouchButton = () => (
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
       </div>
-      <span className="relative text-white text-base font-medium mr-3 group-hover:text-white/95 transition-colors duration-300">Get In Touch !</span>
+      <span className="relative text-white text-base font-medium mr-3 group-hover:text-white/95 transition-colors duration-300">{t.footer.getInTouch}</span>
       <svg
         className="relative w-5 h-4 text-white group-hover:translate-x-2 group-hover:scale-110 transition-all duration-500 ease-out"
         fill="currentColor"
@@ -21,6 +26,7 @@ const GetInTouchButton = () => (
       </svg>
     </Button>
   </a>
-);
+  );
+};
 
-export default GetInTouchButton; 
+export default GetInTouchButton;

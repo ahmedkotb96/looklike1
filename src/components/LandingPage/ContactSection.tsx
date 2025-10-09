@@ -1,6 +1,10 @@
 import GetInTouchButton from "@/components/ui/GetInTouchButton";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/utils/translations";
 
 const ContactSection = () => {
+  const { language } = useLanguage();
+  const t = translations[language];
   return (
     <section
       id="contact"
@@ -59,9 +63,9 @@ const ContactSection = () => {
               lineHeight: 'normal',
             }}
           >
-            <span className="text-white">Why Choose Us for</span>
+            <span className="text-white">{t.contactUsMain.title.part1}</span>
             <br />
-            <span className="text-white">Your </span>
+            <span className="text-white">{t.contactUsMain.title.part2} </span>
             <span
               style={{
                 background: 'linear-gradient(90deg, #142EF5 5.29%, #F41CCC 61.06%)',
@@ -72,9 +76,9 @@ const ContactSection = () => {
               }}
               className="bg-clip-text text-transparent"
             >
-              Marketing
+              {t.contactUsMain.title.part3}
             </span>
-            <span className="text-white"> Needs?</span>
+            <span className="text-white"> {t.contactUsMain.title.part4}</span>
           </h2>
 
           {/* Description */}
@@ -88,11 +92,7 @@ const ContactSection = () => {
               lineHeight: '150%',
             }}
           >
-            At Looklike, we don't just market — we build success stories. With a
-            mix of creativity, experience, and market insight, we craft powerful
-            campaigns tailored to each brand. Our team is dedicated to
-            delivering real results through smart, impactful advertising and
-            marketing solutions.
+            {t.contactUsMain.description}
           </p>
 
           {/* CTA Button */}
