@@ -54,7 +54,7 @@ const ServicesSection = () => {
 
   const routeMap: { [key: string]: string } = {
     [t.services.socialMedia.title]: "/social-media-management",
-    [t.services.branding.title]: "/branding_identity_design",
+    [t.services.branding.title]: "/branding-identity-design",
     [t.services.mediaProduction.title.part1 + " " + t.services.mediaProduction.title.part2]: "/media-production",
     [t.services.outdoor.title]: "/outdoor-advertising",
   };

@@ -188,8 +188,7 @@ const PortfolioSection = () => {
                     src={projects[currentProject].image}
                     alt={projects[currentProject].title}
                     className="w-full h-full object-cover rounded-t-[50px] md:rounded-l-[50px] md:rounded-tr-none cursor-pointer"
-                    onClick={() => navigate("/branding_identity_design")}
-                    loading="lazy"
+                    onClick={() => navigate("/branding-identity-design")}                    loading="lazy"
                     decoding="async"
                   />
                 </div>

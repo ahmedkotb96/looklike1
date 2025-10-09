@@ -13,11 +13,11 @@ import ContactPage from "@/pages/Contact";
 import AdminDashboard from "@/pages/Admin";
 import AdminPortfolio from "@/pages/AdminPortfolio";
 import AdminTeam from "./pages/AdminTeam";
-import BrandingIdentityDesignPage from "@/components/LandingPage/branding_identity_design";
+import BrandingIdentityDesignPage from "@/components/LandingPage/BrandingIdentityDesign";
 import AboutPage from "@/components/LandingPage/main/aboutUsMainSection";
 import OurTeamPage from "@/components/LandingPage/main/ourTeamMain";
-import MediaProductionPage from "@/components/LandingPage/media_production";
-import OutdoorAdvertisingPage from "@/components/LandingPage/outdoor_advertising";
+import MediaProductionPage from "@/components/LandingPage/MediaProduction";
+import OutdoorAdvertisingPage from "@/components/LandingPage/OutdoorAdvertising";
 import SocialMediaManagementPage from "@/components/LandingPage/socialMediaManagment";
 import AdminBranding from "@/pages/AdminBranding";
 import AdminSocialMediaManagement from "@/pages/AdminSocialMediaManagement";
@@ -39,7 +39,7 @@ const AppRoutes = () => {
       <Route path="/admin/social-media" element={<ProtectedRoute><AdminSocialMediaManagement /></ProtectedRoute>} />
       <Route path="/admin/media-production" element={<ProtectedRoute><AdminMediaProduction /></ProtectedRoute>} />
       <Route path="/admin/outdoor-ads" element={<ProtectedRoute><AdminOutdoorAdvertising /></ProtectedRoute>} />
-      <Route path="/branding_identity_design" element={<BrandingIdentityDesignPage />} />
+      <Route path="/branding-identity-design" element={<BrandingIdentityDesignPage />} />
       <Route path="/about" element={<AboutPage />} />
       <Route path="/team" element={<OurTeamPage />} />
       <Route path="/media-production" element={<MediaProductionPage />} />

@@ -23,7 +23,7 @@ const Navigation = () => {
     },
     {
       title: t.services.branding.title,
-      path: "/branding_identity_design"
+      path: "/branding-identity-design"
     },
     {
       title: t.services.mediaProduction.title.part1 + " " + t.services.mediaProduction.title.part2,
