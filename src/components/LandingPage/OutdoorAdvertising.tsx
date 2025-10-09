@@ -7,6 +7,8 @@ import ContactSection from "@/components/LandingPage/ContactSection";
 import { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/firebase";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/utils/translations";
 
 const RightPinkBlur = () => (
     <svg
@@ -50,6 +52,8 @@ const getYouTubeEmbedUrl = (url: string): string => {
 };
 
 export default function OutdoorAdvertising() {
+  const { language } = useLanguage();
+  const t = translations[language];
   const [outdoorAdvertisingItems, setOutdoorAdvertisingItems] = useState<OutdoorAdvertisingItem[]>([]);
 
   useEffect(() => {
@@ -60,7 +64,7 @@ export default function OutdoorAdvertising() {
           const data = doc.data();
           return {
             id: doc.id,
-            name: data.name || "Outdoor Advertising Video",
+            name: data.name || t.services.outdoorAdvertising.fallbackTitle,
             description: data.description || "",
             mediaUrl: data.mediaUrl,
           };
@@ -92,21 +96,21 @@ export default function OutdoorAdvertising() {
       <div className="relative z-10">
         <Navigation />
         {/* Hero Section */}
-        <section className="relative z-10 flex flex-col lg:flex-row items-center justify-between px-4 sm:px-6 md:px-8 lg:px-8 py-16 sm:py-20 md:py-28 pb-8 sm:pb-12 md:pb-16 max-w-7xl mx-auto">
-          <div className="flex flex-col items-start gap-4 max-w-full lg:max-w-[612px] mb-8 lg:mb-0">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[96px] font-dm-sans font-black leading-tight sm:leading-tight md:leading-tight lg:leading-tight xl:leading-[95px]">
-              <span className="text-white">Outdoor </span>
-              <span className="bg-[linear-gradient(267deg,_#00F0FF_4.01%,_#5200FF_57.55%,_#FF2DF7_114.97%)] bg-clip-text text-transparent">Advertising</span>
+        <section className={`relative z-10 flex flex-col lg:flex-row items-center justify-between px-4 sm:px-6 md:px-8 lg:px-8 py-16 sm:py-20 md:py-28 pb-8 sm:pb-12 md:pb-16 max-w-7xl mx-auto ${language === 'ar' ? 'lg:flex-row-reverse' : ''}`}>
+          <div className={`flex flex-col gap-4 max-w-full lg:max-w-[612px] mb-8 lg:mb-0 ${language === 'ar' ? 'items-end' : 'items-start'}`}>
+            <h1 className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[96px] font-dm-sans font-black leading-tight sm:leading-tight md:leading-tight lg:leading-tight xl:leading-[95px] ${language === 'ar' ? 'text-right' : 'text-left'}`}>
+              <span className="text-white">{t.services.outdoorAdvertising.title.part1} </span>
+              <span className="bg-[linear-gradient(267deg,_#00F0FF_4.01%,_#5200FF_57.55%,_#FF2DF7_114.97%)] bg-clip-text text-transparent">{t.services.outdoorAdvertising.title.part2}</span>
             </h1>
-            <p className="text-white font-inter text-sm sm:text-base md:text-lg lg:text-[17px] font-normal leading-relaxed sm:leading-relaxed md:leading-relaxed lg:leading-[24px] max-w-full lg:max-w-[579px] mt-4">
-              Make your brand impossible to ignore with our outdoor advertising solutions. From billboards and transit ads to street furniture and digital displays, we create impactful campaigns that reach your audience where they live, work, and play.
+            <p className={`text-white font-inter text-sm sm:text-base md:text-lg lg:text-[17px] font-normal leading-relaxed sm:leading-relaxed md:leading-relaxed lg:leading-[24px] max-w-full lg:max-w-[579px] mt-4 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
+              {t.services.outdoorAdvertising.description}
             </p>
             <a href="https://wa.me/201022668840" target="_blank" rel="noopener noreferrer">
               <Button className="relative px-8 py-4 bg-white/10 border border-white/20 rounded-xl backdrop-blur-[10px] hover:bg-white/25 hover:border-white/30 active:bg-white/30 transition-all duration-500 ease-out shadow-[0px_0px_8px_4px_rgba(255,255,255,0.15)_inset] hover:shadow-[0px_0px_20px_8px_rgba(255,255,255,0.25)_inset,0px_8px_32px_rgba(255,255,255,0.2)] hover:scale-105 active:scale-95 group overflow-hidden">
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
                 </div>
-                <span className="relative text-white text-base font-medium mr-3 group-hover:text-white/95 transition-colors duration-300">Get In Touch !</span>
+                <span className="relative text-white text-base font-medium mr-3 group-hover:text-white/95 transition-colors duration-300">{t.services.outdoorAdvertising.getInTouch}</span>
                 <svg
                   className="relative w-5 h-4 text-white group-hover:translate-x-2 group-hover:scale-110 transition-all duration-500 ease-out"
                   fill="currentColor"
@@ -117,11 +121,11 @@ export default function OutdoorAdvertising() {
               </Button>
             </a>
           </div>
-          <div className="flex-shrink-0 w-full lg:w-auto flex justify-center lg:justify-end">
+          <div className={`flex-shrink-0 w-full lg:w-auto flex justify-center ${language === 'ar' ? 'lg:justify-start' : 'lg:justify-end'}`}>
             <img
               src={outdoorAdvertisingDecoration}
               alt="Outdoor Advertising Decoration"
-              className="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[500px] lg:h-[500px] xl:w-[672px] xl:h-[672px] object-contain ml-auto -mr-32 sm:-mr-40 md:-mr-48 lg:mr-0"
+              className={`w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[500px] lg:h-[500px] xl:w-[672px] xl:h-[672px] object-contain ${language === 'ar' ? 'mr-auto -ml-32 sm:-ml-40 md:-ml-48 lg:ml-0' : 'ml-auto -mr-32 sm:-mr-40 md:-mr-48 lg:mr-0'}`}
               loading="lazy"
               decoding="async"
             />
@@ -131,10 +135,10 @@ export default function OutdoorAdvertising() {
         <section className="relative z-40 max-w-7xl mx-auto px-5 pb-16 lg:pb-24">
           {/* Section Heading */}
           <div className="text-center mb-12">
-              <h2 className="text-4xl md:text-5xl font-black font-['DM_Sans'] leading-tight">
-                <span className="text-white">Campaigns in </span>
+              <h2 className={`text-4xl md:text-5xl font-black font-['DM_Sans'] leading-tight ${language === 'ar' ? 'text-right' : 'text-left'}`}>
+                <span className="text-white">{t.services.outdoorAdvertising.showcase.title.part1} </span>
                 <span className="bg-gradient-to-r from-[#00F0FF] via-[#5200FF] to-[#FF2DF7] bg-clip-text text-transparent">
-                  the Wild
+                  {t.services.outdoorAdvertising.showcase.title.part2}
                 </span>
               </h2>
           </div>
@@ -159,14 +163,13 @@ export default function OutdoorAdvertising() {
           </div>
           {/* Description and Explore More */}
           <div className="text-center relative z-50 mt-16 sm:mt-20 md:mt-24">
-            <p className="text-white font-inter text-lg sm:text-xl md:text-2xl lg:text-[24px] font-normal leading-relaxed sm:leading-relaxed md:leading-relaxed lg:leading-[34px] max-w-full sm:max-w-[600px] md:max-w-[717px] mx-auto mb-6 sm:mb-8 px-4">
-              Our strategic placement and creative designs ensure maximum visibility. See how we bring brands to the forefront with high-impact outdoor campaigns.
+            <p className={`text-white font-inter text-lg sm:text-xl md:text-2xl lg:text-[24px] font-normal leading-relaxed sm:leading-relaxed md:leading-relaxed lg:leading-[34px] max-w-full sm:max-w-[600px] md:max-w-[717px] mx-auto mb-6 sm:mb-8 px-4 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
+              {t.services.outdoorAdvertising.showcase.description}
             </p>
             <button className="flex mx-auto px-4 sm:px-[15px] py-2 sm:py-[6px] justify-center items-center gap-2 sm:gap-[10px] rounded-[10px] border border-white/15 bg-gray-500/40 backdrop-blur-[7px] shadow-[0px_0px_6px_3px_rgba(255,255,255,0.25)_inset] hover:bg-gray-500/50 hover:scale-105 hover:shadow-xl transition-all duration-300 group">
-              <span className="text-white font-inter text-sm sm:text-[14px] font-normal leading-[26px] tracking-[-0.001px] group-hover:text-white/95 transition-colors duration-300">
-                Explore More
-              </span>
-            </button>
+                            <span className="relative text-white text-base font-medium mr-3 group-hover:text-white/95 transition-colors duration-300">
+                              {t.services.outdoorAdvertising.showcase.button}
+                            </span>            </button>
           </div>
         </section>
         {/* ellipse reversed image as overlay */}
