@@ -111,10 +111,10 @@ export default function MediaProduction() {
 
         {/* Hero Section */}
         <section className="relative z-10 max-w-7xl mx-auto px-5 py-16 pt-32">
-          <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
-            {/* Left Content */}
-            <div className="flex flex-col items-start gap-6 lg:w-1/2 text-center lg:text-left">
-              <h1 className={`text-4xl md:text-6xl lg:text-7xl font-black font-['DM_Sans'] leading-tight ${language === 'ar' ? 'text-right' : 'text-left'}`}>
+          <div className={`flex flex-col lg:flex-row items-center gap-8 lg:gap-16 ${language === 'ar' ? 'lg:flex-row-reverse' : ''}`}>
+            {/* Left Content (Text) */}
+            <div className={`flex flex-col gap-6 lg:w-1/2 text-center ${language === 'ar' ? 'items-end lg:text-right' : 'items-start lg:text-left'}`}>
+              <h1 className={`text-4xl md:text-6xl lg:text-7xl font-black font-['DM_Sans'] leading-tight ${language === 'ar' ? 'text-right' : ''}`}>
                 <span className="text-white">{t.services.mediaProduction.title.part1} </span>
                 <span className="bg-gradient-to-r from-[#00F0FF] via-[#5200FF] to-[#FF2DF7] bg-clip-text text-transparent">
                   {t.services.mediaProduction.title.part2}
