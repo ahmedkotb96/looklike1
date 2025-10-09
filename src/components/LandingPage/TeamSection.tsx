@@ -4,7 +4,12 @@ import { db } from "@/firebase";
 import bottomVector from "@/assets/bottomRightTeamVector.webp";
 import homeBottomRight from "@/assets/decoration/home_bottom_right.webp";
 
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/utils/translations";
+
 const TeamSection = () => {
+  const { language } = useLanguage();
+  const t = translations[language];
   const [teamMembers, setTeamMembers] = useState<Array<{ id: string; name: string; role: string; image: string; overlay?: string }>>([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -122,7 +127,7 @@ const TeamSection = () => {
               lineHeight: 'normal',
             }}
           >
-            <span className="text-white" style={{ fontFamily: 'Inter', fontSize: '46.934px', fontStyle: 'normal', fontWeight: 600, lineHeight: 'normal' }}>Meet Our</span><br />
+            <span className="text-white" style={{ fontFamily: 'Inter', fontSize: '46.934px', fontStyle: 'normal', fontWeight: 600, lineHeight: 'normal' }}>{t.ourTeamMain.title.part1}</span><br />
             <span
               style={{
                 background: 'linear-gradient(267deg, #00F0FF 4.01%, #5200FF 57.55%, #FF2DF7 114.97%)',
@@ -138,7 +143,7 @@ const TeamSection = () => {
               }}
               className="bg-clip-text text-transparent"
             >
-              Creative Team
+              {t.ourTeamMain.title.part2}
             </span>
           </h2>
         </div>

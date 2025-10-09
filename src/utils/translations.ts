@@ -276,7 +276,7 @@ export const translations: Translations = {
         part3: "Marketing",
         part4: "Needs?"
       },
-      description: "At Looklike, we don't just market — we build success stories. With a mix of creativity, experience, and market insight, we craft powerful campaigns tailored to each brand. Our team is dedicated to delivering real results through smart, impactful advertising and marketing solutions.",
+      description: "At Looklike, we don\'t just market — we build success stories. With a mix of creativity, experience, and market insight, we craft powerful campaigns tailored to each brand. Our team is dedicated to delivering real results through smart, impactful advertising and marketing solutions.",
       form: {
         title: "Get in Touch",
         description: "Interested in elevating your brand or have a business inquiry? Complete the form below, and our team will connect with you to discuss how we can help achieve your marketing goals.",
@@ -285,7 +285,7 @@ export const translations: Translations = {
         message: "Your Message",
         button: "Send Message",
         sending: "Sending...",
-        success: "Thank you for reaching out! We'll be in touch soon.",
+        success: "Thank you for reaching out! We\'ll be in touch soon.",
         error: "Sorry, there was an error sending your message. Please try again."
       }
     },
@@ -445,6 +445,9 @@ export const translations: Translations = {
   },
   ar: {
     aboutUsMain: {
+      companies: {
+        title: "نحظى بثقة الشركات الأكثر ابتكارًا"
+      },
       hero: {
         title: {
           innovative: "مبتكر",
@@ -695,12 +698,16 @@ export const translations: Translations = {
       title: 'لماذا تختارنا لاحتياجاتك التسويقية؟',
       description: 'في لوك لايك، نحن لا نقوم بالتسويق فحسب — بل نبني قصص نجاح. من خلال مزيج من الإبداع والخبرة ورؤية السوق، نصمم حملات قوية مخصصة لكل علامة تجارية. فريقنا ملتزم بتقديم نتائج حقيقية من خلال حلول إعلانية وتسويقية ذكية ومؤثرة.'
     },
+    companies: {
+      title: 'نحظى بثقة الشركات الأكثر ابتكارًا',
+      list: ['Babel', 'iHome', 'Al Rehab Development', 'El Massa', 'Villarose', 'Plaza Street', 'Zodiac', 'RE/MAX']
+    },
     footer: {
       getInTouch: 'تواصل معنا!',
       contact: {
         email: 'info@looklike.adv',
-        phone: '٩٧١٥٠٥٠٤٥٢٨٧+',
-        address: 'دبي إنفستمنت بارك - دبي'
+        phone: '+971505045287',
+        address: 'Dubai Investment Park - Dubai'
       },
       copyright: '© ٢٠٢٥ لوك لايك. جميع الحقوق محفوظة.'
     },
@@ -876,6 +883,14 @@ export const translations: Translations = {
         description: "في لوكلايك، نحن لا نسوق فقط - بل نبني قصص نجاح. بمزيج من الإبداع والخبرة ورؤية السوق، نصنع حملات قوية مصممة خصيصًا لكل علامة تجارية. فريقنا مكرس لتقديم نتائج حقيقية من خلال حلول إعلانية وتسويقية ذكية ومؤثرة.",
         button: "تواصل معنا !",
       },
-    }
+    },
+    team: {
+      title: 'تعرف على فريقنا الإبداعي',
+      members: {
+        ceo: 'حسن إدريس | المؤسس / الرئيس التنفيذي',
+        artDirector: 'نجوى صلاح | المدير الفني',
+        accountant: 'محمد الديب | المحاسب'
+      }
+    },
   }
 };

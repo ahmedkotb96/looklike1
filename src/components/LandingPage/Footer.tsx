@@ -1,8 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import looklikeLogo from "@/assets/looklike_logo.png";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/utils/translations";
 
 const Footer = () => {
   const navigate = useNavigate();
+  const { language } = useLanguage();
+  const t = translations[language];
 
   const navigateAndScroll = (path: string, targetId?: string) => {
     navigate(path);
@@ -43,7 +47,7 @@ const Footer = () => {
               onClick={(e) => { e.preventDefault(); navigateAndScroll('/'); }}
               className="relative text-[#E6E6E6] text-sm transition-all duration-300 ease-out hover:text-white hover:scale-105 group overflow-hidden"
             >
-              <span className="relative z-10">Home</span>
+              <span className="relative z-10">{t.navigation.home}</span>
               <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[#00F0FF] via-[#5200FF] to-[#FF2DF7] transition-all duration-300 group-hover:w-full"></div>
             </a>
             <a
@@ -51,7 +55,7 @@ const Footer = () => {
               onClick={(e) => { e.preventDefault(); navigateAndScroll('/', 'about'); }}
               className="relative text-[#E6E6E6] text-sm transition-all duration-300 ease-out hover:text-white hover:scale-105 group overflow-hidden"
             >
-              <span className="relative z-10">About Us</span>
+              <span className="relative z-10">{t.navigation.about}</span>
               <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[#00F0FF] via-[#5200FF] to-[#FF2DF7] transition-all duration-300 group-hover:w-full"></div>
             </a>
             <a
@@ -59,7 +63,7 @@ const Footer = () => {
               onClick={(e) => { e.preventDefault(); navigateAndScroll('/', 'services'); }}
               className="relative text-[#E6E6E6] text-sm transition-all duration-300 ease-out hover:text-white hover:scale-105 group overflow-hidden"
             >
-              <span className="relative z-10">Services</span>
+              <span className="relative z-10">{t.navigation.services}</span>
               <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[#00F0FF] via-[#5200FF] to-[#FF2DF7] transition-all duration-300 group-hover:w-full"></div>
             </a>
             <a
@@ -67,7 +71,7 @@ const Footer = () => {
               onClick={(e) => { e.preventDefault(); navigateAndScroll('/', 'portfolio'); }}
               className="relative text-[#E6E6E6] text-sm transition-all duration-300 ease-out hover:text-white hover:scale-105 group overflow-hidden"
             >
-              <span className="relative z-10">Portfolio</span>
+              <span className="relative z-10">{t.navigation.portfolio}</span>
               <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[#00F0FF] via-[#5200FF] to-[#FF2DF7] transition-all duration-300 group-hover:w-full"></div>
             </a>
             <a
@@ -75,7 +79,7 @@ const Footer = () => {
               className="relative text-[#E6E6E6] text-sm transition-all duration-300 ease-out hover:text-white hover:scale-105 group overflow-hidden"
               onClick={e => { e.preventDefault(); navigate("/team"); }}
             >
-              <span className="relative z-10">Our Team</span>
+              <span className="relative z-10">{t.navigation.team}</span>
               <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[#00F0FF] via-[#5200FF] to-[#FF2DF7] transition-all duration-300 group-hover:w-full"></div>
             </a>
             <a
@@ -83,7 +87,7 @@ const Footer = () => {
               onClick={(e) => { e.preventDefault(); navigate("/contact"); }}
               className="relative text-[#E6E6E6] text-sm transition-all duration-300 ease-out hover:text-white hover:scale-105 group overflow-hidden"
             >
-              <span className="relative z-10">Contact Us</span>
+              <span className="relative z-10">{t.navigation.contact}</span>
               <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[#00F0FF] via-[#5200FF] to-[#FF2DF7] transition-all duration-300 group-hover:w-full"></div>
             </a>
           </div>
@@ -249,7 +253,7 @@ const Footer = () => {
                   />
                 </svg>
                 <span className="text-[#E6E6E6] text-sm transition-all duration-300 group-hover:text-white group-hover:translate-x-1">
-                  info@looklike.adv
+                  {t.footer.contact.email}
                 </span>
               </div>
             </div>
@@ -280,7 +284,7 @@ const Footer = () => {
                   />
                 </svg>
                 <span className="text-[#E6E6E6] text-sm transition-all duration-300 group-hover:text-white group-hover:translate-x-1">
-                  +971505045287
+                  {t.footer.contact.phone}
                 </span>
               </div>
             </div>
@@ -311,7 +315,7 @@ const Footer = () => {
                   />
                 </svg>
                 <span className="text-[#E6E6E6] text-sm transition-all duration-300 group-hover:text-white group-hover:translate-x-1">
-                  Dubai Investment Park - Dubai
+                  {t.footer.contact.address}
                 </span>
               </div>
             </div>
@@ -319,7 +323,7 @@ const Footer = () => {
 
           {/* Copyright */}
           <div className="text-[#98989A] text-sm transition-all duration-300 hover:text-[#E6E6E6] hover:scale-105 cursor-default">
-            © 2025 LookLike. All rights reserved.
+            {t.footer.copyright}
           </div>
         </div>
       </div>
