@@ -340,22 +340,18 @@ export default function OurTeamMain() {
         <div className="text-center max-w-6xl mx-auto pb-10 md:pb-20">
           {/* Main Heading */}
           <h2 className="text-4xl md:text-5xl lg:text-[65px] lg:leading-tight font-bold mb-6 md:mb-8">
-            <span className="text-white">Why Choose Us for</span>
+            <span className="text-white">{t.ourTeamMain.cta.title.part1}</span>
             <br />
-            <span className="text-white">Your </span>
+            <span className="text-white">{t.ourTeamMain.cta.title.part2} </span>
             <span className="bg-gradient-to-r from-[#142EF5] to-[#F41CCC] bg-clip-text text-transparent">
-              Marketing
+              {t.ourTeamMain.cta.title.part3}
             </span>
-            <span className="text-white"> Needs?</span>
+            <span className="text-white"> {t.ourTeamMain.cta.title.part4}</span>
           </h2>
 
           {/* Description */}
           <p className="text-white text-lg md:text-xl lg:text-[25px] lg:leading-[38px] mb-8 md:mb-12 max-w-5xl mx-auto font-medium">
-            At Looklike, we don't just market — we build success stories. With a
-            mix of creativity, experience, and market insight, we craft powerful
-            campaigns tailored to each brand. Our team is dedicated to
-            delivering real results through smart, impactful advertising and
-            marketing solutions.
+            {t.ourTeamMain.cta.description}
           </p>
 
           {/* CTA Button */}
@@ -370,7 +366,7 @@ export default function OurTeamMain() {
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
               </div>
               
-              <span className="relative text-white text-base font-medium mr-3 group-hover:text-white/95 transition-colors duration-300">Get In Touch !</span>
+              <span className="relative text-white text-base font-medium mr-3 group-hover:text-white/95 transition-colors duration-300">{t.ourTeamMain.cta.button}</span>
               <svg
                 className="relative w-5 h-4 text-white group-hover:translate-x-2 group-hover:scale-110 transition-all duration-500 ease-out"
                 fill="currentColor"
