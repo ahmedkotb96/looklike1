@@ -9,6 +9,7 @@ import remaxLogo from "@/assets/previous_customers/remax.webp";
 import blueLeftVectorTrustedSection from "@/assets/leftTrustedCompaniesVector.webp";
 
 
+
 /**
  * Fixed Infinite Marquee Animation Styles
  * 
