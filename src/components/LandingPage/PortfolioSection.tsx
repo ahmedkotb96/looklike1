@@ -9,8 +9,12 @@ import elmassaBrandIdentity from "@/assets/Portfolio_imgs/elmassa_portfolio.webp
 import ihomeBrandIdentity from "@/assets/Portfolio_imgs/ihome_portfolio.webp";
 import zodiacBrandIdentity from "@/assets/Portfolio_imgs/zodiac_portfolio.webp";
 import centromallBrandIdentity from "@/assets/Portfolio_imgs/centromall_portfolio.webp";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/utils/translations";
 
 const PortfolioSection = () => {
+  const { language } = useLanguage();
+  const t = translations[language];
   const [currentProject, setCurrentProject] = useState(0);
   const [firestoreProjects, setFirestoreProjects] = useState<Array<{ id: string; title: string; description: string; image: string; logo?: string }>>([]);
   const [expandedDescriptions, setExpandedDescriptions] = useState<{[key: number]: boolean}>({});
@@ -46,7 +50,7 @@ const PortfolioSection = () => {
       id: "1",
       title: "ihome",
       description:
-        "We crafted a modern and clean visual identity for i Home, reflecting the brand's focus on smart living and contemporary design.",
+        t.portfolio.ihomeProject,
       image: ihomeBrandIdentity,
       logo: "https://cdn.builder.io/api/v1/image/assets/TEMP/19262947c98dfd5570bca883385edc5103f3b892",
     },
@@ -104,6 +108,7 @@ const PortfolioSection = () => {
         })
       );
     };
+    
     fetchProjects();
   }, []);
 

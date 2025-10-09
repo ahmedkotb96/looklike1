@@ -5,8 +5,12 @@ import brandingServicesImg from "@/assets/Services_imgs/brandingServices.webp";
 import mediaProductionImg from "@/assets/Services_imgs/mediaProduction.webp";
 import outdoorAdvertisingImg from "@/assets/Services_imgs/outdoorAdvertising.webp";
 import PinkVector from "@/assets/topRightPinkVector.webp";
+import { useLanguage } from '@/contexts/LanguageContext';
+import { translations } from '@/utils/translations';
 
 const ServicesSection = () => {
+  const { language } = useLanguage();
+  const t = translations[language];
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
@@ -16,43 +20,43 @@ const ServicesSection = () => {
   const services = [
     {
       id: 1,
-      title: "Social Media Management",
+      title: t.services.socialMedia.title,
       description:
-        "In the age of social media, we build your brand's presence across all major platforms. Our team creates and manages compelling content that engages your audience and drives results, focusing on strategies that convert followers into customers.",
+        t.services.socialMedia.description,
       image:
         socialMediaManagmentImg,
     },
     {
       id: 2,
-      title: "Branding Service",
+      title: t.services.branding.title,
       description:
-        "Your brand identity is what makes you stand out. We craft visual identities that capture the essence of your business and ensure consistency across all media, from logo design and color palettes to typography and comprehensive brand guidelines.",
+        t.services.branding.description,
       image:
         brandingServicesImg,
     },
     {
       id: 3,
-      title: "Media Production",
+      title: t.services.mediaProduction.title.part1 + " " + t.services.mediaProduction.title.part2,
       description:
-        "We bring your brand's story to life through high-quality media production. Whether it's a promotional video, professional photography, or eye-catching motion graphics, our production team delivers stunning visuals that captivate your audience.",
+        t.services.mediaProduction.description,
       image:
         mediaProductionImg,
     },
     {
       id: 4,
-      title: "Outdoor Advertising",
+      title: t.services.outdoor.title,
       description:
-        "Make your brand impossible to ignore with our outdoor advertising solutions. From billboards and transit ads to street furniture and digital displays, we create impactful campaigns that reach your audience where they live, work, and play.",
+        t.services.outdoor.description,
       image:
         outdoorAdvertisingImg,
     },
   ];
 
   const routeMap: { [key: string]: string } = {
-    "Social Media Management": "/social-media-management",
-    "Branding Service": "/branding_identity_design",
-    "Media Production": "/media-production",
-    "Outdoor Advertising": "/outdoor-advertising",
+    [t.services.socialMedia.title]: "/social-media-management",
+    [t.services.branding.title]: "/branding_identity_design",
+    [t.services.mediaProduction.title.part1 + " " + t.services.mediaProduction.title.part2]: "/media-production",
+    [t.services.outdoor.title]: "/outdoor-advertising",
   };
 
   const handleToggleDescription = (e: React.MouseEvent, serviceId: number) => {
@@ -207,7 +211,7 @@ const ServicesSection = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
         <div className="text-center mb-8 sm:mb-12 lg:mb-16">
           <h2 className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 lg:mb-8">
-            Our Services
+            {t.services.title}
           </h2>
         </div>
 
@@ -265,7 +269,7 @@ const ServicesSection = () => {
                                   onClick={(e) => handleToggleDescription(e, service.id)}
                                   className="text-blue-300 text-xs font-semibold mt-2 hover:underline z-50"
                                 >
-                                  {isExpanded ? 'See Less' : 'See More'}
+                                  {isExpanded ? t.services.seeLess : t.services.seeMore}
                                 </button>
                               )}
                           </div>
@@ -399,7 +403,7 @@ const ServicesSection = () => {
                               onClick={(e) => handleToggleDescription(e, service.id)}
                               className="text-blue-300 text-sm font-semibold mt-2 hover:underline z-50"
                             >
-                              {isExpanded ? 'See Less' : 'See More'}
+                              {isExpanded ? t.services.seeLess : t.services.seeMore}
                             </button>
                           )}
                         </div>

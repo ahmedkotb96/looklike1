@@ -232,7 +232,8 @@ export const translations: Translations = {
           "At Looklike, we craft every brand with attention to the smallest detail — from the logo to the colors and tone of voice. Explore more of our visual identity projects.",
         exploreMore: "Explore More",
       },
-      seeMore: 'See More'
+      seeMore: 'See More',
+      seeLess: 'See Less'
     },
     companies: {
       title: 'Trusted by most innovative Companies',
@@ -241,7 +242,11 @@ export const translations: Translations = {
     portfolio: {
       title: 'Check Our Last Work',
       subtitle: 'Take a look at our latest projects where creativity meets strategy.',
-      ihomeProject: 'We crafted a modern and clean visual identity for i Home, reflecting the brand\'s focus on smart living and contemporary design.'
+      ihomeProject: 'We crafted a modern and clean visual identity for i Home, reflecting the brand\'s focus on smart living and contemporary design.',
+      elmassaProject: 'Developed a refined and modern brand identity that reflects luxury, trust, and elegance. The design captures the brand\'s premium positioning through a sophisticated logo, elegant typography, and a timeless color palette. This comprehensive brand system ensures consistency across all touchpoints while maintaining the sophisticated aesthetic that defines the Elmassa experience.',
+      zodiacProject: 'We developed a bold and professional visual identity for Zodiac, capturing the essence of trust, growth, and real estate expertise. The design reflects the brand\'s ambition to lead in the property marketing sector.',
+      cinnarollsProject: 'We developed a bold and professional visual identity for CinnaRolls, capturing the warmth and comfort of freshly baked goods. The design combines playful elements with professional execution, creating a brand that feels both approachable and premium. Our comprehensive approach included logo design, packaging concepts, and brand guidelines that reflect the artisanal quality and delicious experience that CinnaRolls represents.',
+      centromallProject: 'Modern and clean brand identity for Centro Mall, reflecting the brand\'s focus on family shopping and contemporary retail experience.'
     },
     team: {
       title: 'Meet Our Creative Team',

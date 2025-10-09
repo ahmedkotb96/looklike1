@@ -1,8 +1,13 @@
 import { Button } from "@/components/ui/button";
 import homeTopLeft from "@/assets/decoration/home_top_left.webp";
 import homeTopRight from "@/assets/decoration/home_top_right.webp";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/utils/translations";
 
 const HeroSection = () => {
+  const { language } = useLanguage();
+  const t = translations[language];
+
   return (
     <section
       // FINAL RESPONSIVE LOGIC: Handles all screen types correctly.
@@ -25,7 +30,7 @@ const HeroSection = () => {
       <DecorativeElements />
       
       {/* Main Content */}
-      <MainContent />
+      <MainContent t={t} />
 
       {/* SVG decorative element at bottom */}
       <div className="absolute left-0 w-full z-30 pointer-events-none" style={{ bottom: 'clamp(-2rem, -5vw, -4rem)' }}>
@@ -67,9 +72,9 @@ const HeroSection = () => {
 
       {/* Services introduction text */}
       <div className="absolute bottom-4 left-0 right-0 md:relative md:bottom-auto md:left-auto md:right-auto z-40 text-center px-4 max-w-2xl mx-auto md:mb-16" style={{ marginTop: '12rem' }}>
-        <p className="text-white text-base sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2">Everything you need</p>
+        <p className="text-white text-base sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2">{t.hero.needsTitle}</p>
         <p className="text-white text-xs sm:text-base md:text-lg lg:text-xl max-w-2xl mx-auto mt-2">
-          From branding and graphic design to social media, digital ads, and outdoor campaigns — we plan, design, and execute strategies that get you noticed. Set goals, assign tasks, and watch your brand grow — effortlessly.
+          {t.hero.needsDescription}
         </p>
       </div>
 
@@ -172,25 +177,25 @@ if (typeof window !== 'undefined') {
 }
 
 // Main content component
-const MainContent = () => (
+const MainContent = ({ t }: { t: any }) => (
   <div className="relative z-30 flex flex-col items-center justify-center text-center px-4 max-w-7xl mx-auto mb-auto"
        // IMPROVEMENT: Gap between elements is now responsive to screen height.
        style={{ gap: 'clamp(1rem, 3vh, 3rem)' }}>
     
     {/* Main heading */}
-    <MainHeading />
+    <MainHeading t={t} />
     
     {/* Welcome text */}
-    <WelcomeText />
+    <WelcomeText t={t} />
     
     {/* CTA Button */}
-    <CTAButton />
+    <CTAButton t={t} />
     
   </div>
 );
 
 // Main heading component
-const MainHeading = () => (
+const MainHeading = ({ t }: { t: any }) => (
   <h1
     style={{
       color: '#FFF',
@@ -208,14 +213,14 @@ const MainHeading = () => (
     }}
   >
     <span style={{ display: 'block' }}>
-      Expect More
+      {t.hero.expectMore.split(' ')[0]}
     </span>
     <span style={{ 
         display: 'block', 
         // IMPROVEMENT: Responsive margin-top to maintain spacing across screen sizes.
         marginTop: 'clamp(0.25rem, 2vh, 1rem)' 
     }}>
-      With Us!
+      {t.hero.expectMore.split(' ').slice(1).join(' ')}
     </span>
   </h1>
 );
@@ -234,20 +239,20 @@ const baseWelcomeTextStyle = {
   lineHeight: 1.5,
 };
 
-const WelcomeText = () => (
+const WelcomeText = ({ t }: { t: any }) => (
   // IMPROVEMENT: Responsive margin-top to ensure proper spacing from the main heading.
   <div style={{ marginTop: 'clamp(1rem, 4vh, 2rem)' }}>
     <div style={baseWelcomeTextStyle}>
-      Welcome to Look Like Advertising & Marketing
+      {t.hero.welcome}
     </div>
     <div style={{ ...baseWelcomeTextStyle, marginTop: '4px' }}>
-      your partner for creative advertising solutions!
+      {t.hero.subtitle}
     </div>
   </div>
 );
 
 // CTA button component
-const CTAButton = () => (
+const CTAButton = ({ t }: { t: any }) => (
   <a href="#services" tabIndex={-1} className="focus:outline-none">
     <Button 
       className="bg-white/10 border border-white/15 rounded-lg backdrop-blur-[7px] 
@@ -262,7 +267,7 @@ const CTAButton = () => (
       }}
     >
       <span className="text-white" style={{ fontSize: 'clamp(0.875rem, 2vw, 1.25rem)' }}>
-        Explore More
+        {t.hero.exploreMore}
       </span>
     </Button>
   </a>

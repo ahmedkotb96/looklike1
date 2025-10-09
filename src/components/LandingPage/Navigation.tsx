@@ -3,49 +3,48 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { X, Menu, ChevronDown, Globe, Search } from "lucide-react";
 import looklikeLogo from "@/assets/looklike_logo.png";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/utils/translations";
 
 const Navigation = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [language, setLanguage] = useState('en'); // 'en' or 'ar'
+  const { language, toggleLanguage } = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
-
-  const toggleLanguage = () => {
-    setLanguage(prev => (prev === 'en' ? 'ar' : 'en'));
-  };
+  const t = translations[language];
 
   const serviceItems = [
     {
-      title: "Social Media Management",
+      title: t.services.socialMedia.title,
       path: "/social-media-management"
     },
     {
-      title: "Branding & Identity Design",
+      title: t.services.branding.title,
       path: "/branding_identity_design"
     },
     {
-      title: "Media Production",
+      title: t.services.mediaProduction.title.part1 + " " + t.services.mediaProduction.title.part2,
       path: "/media-production"
     },
     {
-      title: "Outdoor Advertising",
+      title: t.services.outdoor.title,
       path: "/outdoor-advertising"
     }
   ];
 
   const allSearchableItems: { title: string; path: string; external?: boolean }[] = [
-    { title: "Home", path: "/" },
-    { title: "About Us", path: "/about" },
+    { title: t.navigation.home, path: "/" },
+    { title: t.navigation.about, path: "/about" },
     ...serviceItems.map(item => ({
       title: item.title,
       path: item.path
     })),
-    { title: "Portfolio", path: "https://www.behance.net/Looklikeadd544", external: true },
-    { title: "Our Team", path: "/team" },
-    { title: "Contact Us", path: "/contact" },
+    { title: t.navigation.portfolio, path: "https://www.behance.net/Looklikeadd544", external: true },
+    { title: t.navigation.team, path: "/team" },
+    { title: t.navigation.contact, path: "/contact" },
   ];
 
   const filteredResults = searchQuery
@@ -129,7 +128,7 @@ const Navigation = () => {
               }`}
               onClick={(e) => { e.preventDefault(); handleNavigate("/"); }}
             >
-              Home
+              {t.navigation.home}
             </a>
             <a
               href="/about"
@@ -138,7 +137,7 @@ const Navigation = () => {
               }`}
               onClick={(e) => { e.preventDefault(); handleNavigate("/about"); }}
             >
-              About Us
+              {t.navigation.about}
             </a>
             
             {/* START: Centered "Solid Glass" Submenu */}
@@ -153,7 +152,7 @@ const Navigation = () => {
                   isServicesActive ? "font-bold" : ""
                 }`}
               >
-                Services
+                {t.navigation.services}
                 <ChevronDown className={`ml-1 h-4 w-4 transition-transform duration-200 ${servicesDropdownOpen ? 'rotate-180' : ''}`} />
               </div>
 
@@ -197,7 +196,7 @@ const Navigation = () => {
               rel="noopener noreferrer"
               className="text-white text-base hover:text-blue-300 transition-colors"
             >
-              Portfolio
+              {t.navigation.portfolio}
             </a>
             <a
               href="/team"
@@ -206,13 +205,13 @@ const Navigation = () => {
               }`}
               onClick={(e) => { e.preventDefault(); handleNavigate("/team"); }}
             >
-              Our Team
+              {t.navigation.team}
             </a>
             <Button
               className="bg-[#1225B9] hover:bg-[#1225B9]/90 text-white px-4 py-2 rounded-lg"
               onClick={() => handleNavigate("/contact")}
             >
-              Contact Us
+              {t.navigation.contact}
             </Button>
 
             <div className="relative ml-2">
@@ -327,7 +326,7 @@ const Navigation = () => {
                     onClick={(e) => { e.preventDefault(); handleNavigate("/"); }}
                   >
                     <div className="flex items-center justify-end">
-                      <span className="group-hover:text-blue-300 transition-colors duration-300">Home</span>
+                      <span className="group-hover:text-blue-300 transition-colors duration-300">{t.navigation.home}</span>
                       <div className="w-2 h-2 rounded-full bg-blue-400 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110 ml-4"></div>
                     </div>
                   </a>
@@ -339,7 +338,7 @@ const Navigation = () => {
                     onClick={(e) => { e.preventDefault(); handleNavigate("/about"); }}
                   >
                     <div className="flex items-center justify-end">
-                      <span className="group-hover:text-blue-300 transition-colors duration-300">About Us</span>
+                      <span className="group-hover:text-blue-300 transition-colors duration-300">{t.navigation.about}</span>
                       <div className="w-2 h-2 rounded-full bg-purple-400 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110 ml-4"></div>
                     </div>
                   </a>
@@ -355,7 +354,7 @@ const Navigation = () => {
                       }}
                     >
                       <div className="flex items-center justify-end">
-                        <span className="group-hover:text-blue-300 transition-colors duration-300">Services</span>
+                        <span className="group-hover:text-blue-300 transition-colors duration-300">{t.navigation.services}</span>
                         <ChevronDown className={`ml-2 h-4 w-4 transition-transform duration-200 ${servicesDropdownOpen ? 'rotate-180 text-blue-300' : ''}`} />
                         <div className="w-2 h-2 rounded-full bg-cyan-400 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110 ml-2"></div>
                       </div>
@@ -387,7 +386,7 @@ const Navigation = () => {
                     className="group block text-white/90 font-medium text-lg py-4 px-4 rounded-2xl hover:bg-white/10 border border-transparent hover:border-white/20 transition-all duration-300 hover:transform hover:translate-x-1"
                   >
                     <div className="flex items-center justify-end">
-                      <span className="group-hover:text-blue-300 transition-colors duration-300">Portfolio</span>
+                      <span className="group-hover:text-blue-300 transition-colors duration-300">{t.navigation.portfolio}</span>
                       <div className="w-2 h-2 rounded-full bg-pink-400 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110 ml-4"></div>
                     </div>
                   </a>
@@ -399,7 +398,7 @@ const Navigation = () => {
                     onClick={(e) => { e.preventDefault(); handleNavigate("/team"); }}
                   >
                     <div className="flex items-center justify-end">
-                      <span className="group-hover:text-blue-300 transition-colors duration-300">Our Team</span>
+                      <span className="group-hover:text-blue-300 transition-colors duration-300">{t.navigation.team}</span>
                       <div className="w-2 h-2 rounded-full bg-green-400 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110 ml-4"></div>
                     </div>
                   </a>
@@ -409,7 +408,7 @@ const Navigation = () => {
                         className="w-full bg-gradient-to-r from-[#1225B9] to-blue-600 hover:from-[#1225B9]/90 hover:to-blue-600/90 text-white px-4 py-3 rounded-2xl text-[1rem] font-semibold shadow-xl hover:shadow-2xl transform hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300 border border-blue-400/20 min-h-0 min-w-0"
                         onClick={() => handleNavigate("/contact")}
                       >
-                        <span className="relative z-10 leading-tight text-[0.95rem] font-semibold tracking-tight">Contact Us</span>
+                        <span className="relative z-10 leading-tight text-[0.95rem] font-semibold tracking-tight">{t.navigation.contact}</span>
                         <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-2xl"></div>
                       </Button>
                     </div>
