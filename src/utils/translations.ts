@@ -267,7 +267,7 @@ export const translations: Translations = {
         phone: '+971505045287',
         address: 'Dubai Investment Park - Dubai'
       },
-      copyright: '© 2025 LookLike. All rights reserved. and beyond'
+      copyright: '© 2025 LookLike. All rights reserved.'
     },
     contactUsMain: {
       title: {

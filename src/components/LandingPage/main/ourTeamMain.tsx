@@ -5,6 +5,8 @@ import Navigation from "@/components/LandingPage/Navigation";
 import Footer from "@/components/LandingPage/Footer";
 import { Button } from "@/components/ui/button";
 import bottomEclipse from "@/assets/ellipse_bottom.webp";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/utils/translations";
 
 interface TeamMember {
   id: string;
@@ -15,6 +17,8 @@ interface TeamMember {
 }
 
 export default function OurTeamMain() {
+  const { language } = useLanguage();
+  const t = translations[language];
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
@@ -168,7 +172,7 @@ export default function OurTeamMain() {
               lineHeight: 'normal',
             }}
           >
-            <span className="text-white" style={{ fontFamily: 'Inter', fontSize: '46.934px', fontStyle: 'normal', fontWeight: 600, lineHeight: 'normal' }}>Meet Our</span><br />
+            <span className="text-white" style={{ fontFamily: 'Inter', fontSize: '46.934px', fontStyle: 'normal', fontWeight: 600, lineHeight: 'normal' }}>{t.ourTeamMain.title.part1}</span><br />
             <span
               style={{
                 background: 'linear-gradient(267deg, #00F0FF 4.01%, #5200FF 57.55%, #FF2DF7 114.97%)',
@@ -184,7 +188,7 @@ export default function OurTeamMain() {
               }}
               className="bg-clip-text text-transparent"
             >
-              Creative Team
+              {t.ourTeamMain.title.part2}
             </span>
           </h2>
         </div>
