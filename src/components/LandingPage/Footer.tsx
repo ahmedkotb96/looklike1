@@ -41,14 +41,14 @@ const Footer = () => {
           </div>
 
           {/* Navigation Links */}
-          <div className="flex flex-wrap items-center gap-6 md:gap-8">
+          <div className={`flex flex-wrap items-center gap-6 md:gap-8 ${language === 'ar' ? 'flex-row-reverse' : ''}`}>
             <a
               href="/"
               onClick={(e) => { e.preventDefault(); navigateAndScroll('/'); }}
               className="relative text-[#E6E6E6] text-sm transition-all duration-300 ease-out hover:text-white hover:scale-105 group overflow-hidden"
             >
               <span className="relative z-10">{t.navigation.home}</span>
-              <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[#00F0FF] via-[#5200FF] to-[#FF2DF7] transition-all duration-300 group-hover:w-full"></div>
+              <div className={`absolute bottom-0 ${language === 'ar' ? 'right-0' : 'left-0'} w-0 h-[2px] bg-gradient-to-r from-[#00F0FF] via-[#5200FF] to-[#FF2DF7] transition-all duration-300 group-hover:w-full`}></div>
             </a>
             <a
               href="/about"
@@ -224,10 +224,10 @@ const Footer = () => {
         {/* Contact Info and Copyright */}
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8">
           {/* Contact Information */}
-          <div className="flex flex-col md:flex-row gap-6">
+          <div className={`flex flex-col md:flex-row gap-6 ${language === 'ar' ? 'md:flex-row-reverse' : ''}`}>
             {/* Email */}
             <div className="group cursor-pointer">
-              <div className="flex items-center gap-2 pb-3 border-b border-[#262626] transition-all duration-300 group-hover:border-[#00F0FF]/50 group-hover:pb-4">
+              <div className={`flex items-center gap-2 pb-3 border-b border-[#262626] transition-all duration-300 group-hover:border-[#00F0FF]/50 group-hover:pb-4 ${language === 'ar' ? 'flex-row-reverse' : ''}`}>
                 <svg className="w-4 h-4 transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_8px_rgba(0,240,255,0.5)]" viewBox="0 0 19 19" fill="none">
                   <defs>
                     <linearGradient
@@ -252,7 +252,7 @@ const Footer = () => {
                     fill="url(#emailGrad)"
                   />
                 </svg>
-                <span className="text-[#E6E6E6] text-sm transition-all duration-300 group-hover:text-white group-hover:translate-x-1">
+                <span className={`text-[#E6E6E6] text-sm transition-all duration-300 group-hover:text-white ${language === 'ar' ? 'group-hover:-translate-x-1' : 'group-hover:translate-x-1'}`}>
                   {t.footer.contact.email}
                 </span>
               </div>
@@ -260,7 +260,7 @@ const Footer = () => {
 
             {/* Phone */}
             <div className="group cursor-pointer">
-              <div className="flex items-center gap-2 pb-3 border-b border-[#262626] transition-all duration-300 group-hover:border-[#5200FF]/50 group-hover:pb-4">
+              <div className={`flex items-center gap-2 pb-3 border-b border-[#262626] transition-all duration-300 group-hover:border-[#5200FF]/50 group-hover:pb-4 ${language === 'ar' ? 'flex-row-reverse' : ''}`}>
                 <svg className="w-4 h-4 transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_8px_rgba(82,0,255,0.5)]" viewBox="0 0 19 19" fill="none">
                   <defs>
                     <linearGradient
@@ -283,7 +283,7 @@ const Footer = () => {
                     fill="url(#phoneGrad)"
                   />
                 </svg>
-                <span className="text-[#E6E6E6] text-sm transition-all duration-300 group-hover:text-white group-hover:translate-x-1">
+                <span className={`text-[#E6E6E6] text-sm transition-all duration-300 group-hover:text-white ${language === 'ar' ? 'group-hover:-translate-x-1' : 'group-hover:translate-x-1'}`}>
                   {t.footer.contact.phone}
                 </span>
               </div>
@@ -291,7 +291,7 @@ const Footer = () => {
 
             {/* Location */}
             <div className="group cursor-pointer">
-              <div className="flex items-center gap-2 pb-3 border-b border-[#262626] transition-all duration-300 group-hover:border-[#FF2DF7]/50 group-hover:pb-4">
+              <div className={`flex items-center gap-2 pb-3 border-b border-[#262626] transition-all duration-300 group-hover:border-[#FF2DF7]/50 group-hover:pb-4 ${language === 'ar' ? 'flex-row-reverse' : ''}`}>
                 <svg className="w-4 h-4 transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_8px_rgba(255,45,247,0.5)]" viewBox="0 0 19 19" fill="none">
                   <defs>
                     <linearGradient
@@ -314,7 +314,7 @@ const Footer = () => {
                     fill="url(#locationGrad)"
                   />
                 </svg>
-                <span className="text-[#E6E6E6] text-sm transition-all duration-300 group-hover:text-white group-hover:translate-x-1">
+                <span className={`text-[#E6E6E6] text-sm transition-all duration-300 group-hover:text-white ${language === 'ar' ? 'group-hover:-translate-x-1' : 'group-hover:translate-x-1'}`}>
                   {t.footer.contact.address}
                 </span>
               </div>

@@ -120,7 +120,7 @@ const Navigation = () => {
           </a>
 
           {/* Navigation Links */}
-          <div className="hidden md:flex items-center gap-6">
+          <div className={`hidden md:flex items-center gap-6 ${language === 'ar' ? 'flex-row-reverse' : ''}`}>
             <a
               href="/"
               className={`text-white text-base hover:text-blue-300 transition-colors ${
@@ -150,10 +150,10 @@ const Navigation = () => {
               <div
                 className={`flex items-center text-white text-base hover:text-blue-300 transition-colors cursor-pointer ${
                   isServicesActive ? "font-bold" : ""
-                }`}
+                } ${language === 'ar' ? 'flex-row-reverse' : ''}`}
               >
                 {t.navigation.services}
-                <ChevronDown className={`ml-1 h-4 w-4 transition-transform duration-200 ${servicesDropdownOpen ? 'rotate-180' : ''}`} />
+                <ChevronDown className={`${language === 'ar' ? 'mr-1' : 'ml-1'} h-4 w-4 transition-transform duration-200 ${servicesDropdownOpen ? 'rotate-180' : ''}`} />
               </div>
 
               {/* Animated Container - Now perfectly centered */}
@@ -176,11 +176,11 @@ const Navigation = () => {
                           handleNavigate(item.path);
                         }}
                       >
-                        <div className="flex items-center justify-between">
+                        <div className={`flex items-center ${language === 'ar' ? 'flex-row-reverse' : 'justify-between'}`}>
                           <span className="group-hover:text-blue-300 transition-colors duration-200">
                             {item.title}
                           </span>
-                          <div className="w-2 h-2 rounded-full bg-blue-400 opacity-0 group-hover:opacity-100 transition-all duration-200 group-hover:scale-110"></div>
+                          <div className={`w-2 h-2 rounded-full bg-blue-400 opacity-0 group-hover:opacity-100 transition-all duration-200 group-hover:scale-110 ${language === 'ar' ? 'ml-2' : ''}`}></div>
                         </div>
                       </a>
                     ))}
@@ -214,7 +214,7 @@ const Navigation = () => {
               {t.navigation.contact}
             </Button>
 
-            <div className="relative ml-2">
+            <div className={`relative ${language === 'ar' ? 'mr-2' : 'ml-2'}`}>
               <Button
                 variant="ghost"
                 size="icon"
@@ -302,7 +302,7 @@ const Navigation = () => {
             onClick={() => setMenuOpen(false)}
           />
           <div
-            className="absolute top-0 right-0 max-h-full w-56 max-w-[80vw] bg-gradient-to-br from-white/[0.08] via-white/[0.05] to-white/[0.02] backdrop-blur-2xl border-l border-white/20 shadow-2xl rounded-l-2xl overflow-y-auto mt-6 mb-6"
+            className={`absolute top-0 ${language === 'ar' ? 'left-0 rounded-r-2xl border-r' : 'right-0 rounded-l-2xl border-l'} max-h-full w-56 max-w-[80vw] bg-gradient-to-br from-white/[0.08] via-white/[0.05] to-white/[0.02] backdrop-blur-2xl border-white/20 shadow-2xl overflow-y-auto mt-6 mb-6`}
             style={{ height: "auto", maxHeight: "calc(100vh - 3rem)" }}
           >
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/5 to-cyan-500/10 opacity-60"></div>
@@ -325,9 +325,9 @@ const Navigation = () => {
                     }`}
                     onClick={(e) => { e.preventDefault(); handleNavigate("/"); }}
                   >
-                    <div className="flex items-center justify-end">
+                    <div className={`flex items-center ${language === 'ar' ? 'justify-start flex-row-reverse' : 'justify-end'}`}>
                       <span className="group-hover:text-blue-300 transition-colors duration-300">{t.navigation.home}</span>
-                      <div className="w-2 h-2 rounded-full bg-blue-400 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110 ml-4"></div>
+                      <div className={`w-2 h-2 rounded-full bg-blue-400 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110 ${language === 'ar' ? 'mr-4' : 'ml-4'}`}></div>
                     </div>
                   </a>
                   <a
@@ -337,9 +337,9 @@ const Navigation = () => {
                     }`}
                     onClick={(e) => { e.preventDefault(); handleNavigate("/about"); }}
                   >
-                    <div className="flex items-center justify-end">
+                    <div className={`flex items-center ${language === 'ar' ? 'justify-start flex-row-reverse' : 'justify-end'}`}>
                       <span className="group-hover:text-blue-300 transition-colors duration-300">{t.navigation.about}</span>
-                      <div className="w-2 h-2 rounded-full bg-purple-400 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110 ml-4"></div>
+                      <div className={`w-2 h-2 rounded-full bg-purple-400 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110 ${language === 'ar' ? 'mr-4' : 'ml-4'}`}></div>
                     </div>
                   </a>
                   <div className="mb-2 services-dropdown">
@@ -353,14 +353,14 @@ const Navigation = () => {
                         setServicesDropdownOpen(!servicesDropdownOpen);
                       }}
                     >
-                      <div className="flex items-center justify-end">
+                      <div className={`flex items-center ${language === 'ar' ? 'justify-start flex-row-reverse' : 'justify-end'}`}>
                         <span className="group-hover:text-blue-300 transition-colors duration-300">{t.navigation.services}</span>
-                        <ChevronDown className={`ml-2 h-4 w-4 transition-transform duration-200 ${servicesDropdownOpen ? 'rotate-180 text-blue-300' : ''}`} />
-                        <div className="w-2 h-2 rounded-full bg-cyan-400 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110 ml-2"></div>
+                        <ChevronDown className={`${language === 'ar' ? 'mr-2' : 'ml-2'} h-4 w-4 transition-transform duration-200 ${servicesDropdownOpen ? 'rotate-180 text-blue-300' : ''}`} />
+                        <div className={`w-2 h-2 rounded-full bg-cyan-400 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110 ${language === 'ar' ? 'mr-2' : 'ml-2'}`}></div>
                       </div>
                     </a>
                     {servicesDropdownOpen && (
-                      <div className="mt-1 ml-4 pl-4 border-l border-white/10">
+                      <div className={`mt-1 ${language === 'ar' ? 'mr-4 pr-4 border-r' : 'ml-4 pl-4 border-l'} border-white/10`}>
                         {serviceItems.map((item, index) => (
                           <a
                             key={index}
@@ -368,11 +368,11 @@ const Navigation = () => {
                             className={`group block text-white/80 text-base py-3 px-4 rounded-xl hover:bg-white/5 transition-all duration-300 ${location.pathname === item.path ? 'text-blue-300 font-medium' : 'font-normal'}`}
                             onClick={(e) => { e.preventDefault(); handleNavigate(item.path); }}
                           >
-                            <div className="flex items-center justify-end">
+                            <div className={`flex items-center ${language === 'ar' ? 'justify-start flex-row-reverse' : 'justify-end'}`}>
                               <span className="group-hover:text-blue-300 transition-colors duration-300">
                                 {item.title}
                               </span>
-                              <div className="w-1.5 h-1.5 rounded-full bg-blue-400/70 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110 ml-3"></div>
+                              <div className={`w-1.5 h-1.5 rounded-full bg-blue-400/70 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110 ${language === 'ar' ? 'mr-3' : 'ml-3'}`}></div>
                             </div>
                           </a>
                         ))}
@@ -385,9 +385,9 @@ const Navigation = () => {
                     rel="noopener noreferrer"
                     className="group block text-white/90 font-medium text-lg py-4 px-4 rounded-2xl hover:bg-white/10 border border-transparent hover:border-white/20 transition-all duration-300 hover:transform hover:translate-x-1"
                   >
-                    <div className="flex items-center justify-end">
+                    <div className={`flex items-center ${language === 'ar' ? 'justify-start flex-row-reverse' : 'justify-end'}`}>
                       <span className="group-hover:text-blue-300 transition-colors duration-300">{t.navigation.portfolio}</span>
-                      <div className="w-2 h-2 rounded-full bg-pink-400 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110 ml-4"></div>
+                      <div className={`w-2 h-2 rounded-full bg-pink-400 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110 ${language === 'ar' ? 'mr-4' : 'ml-4'}`}></div>
                     </div>
                   </a>
                   <a
@@ -397,21 +397,21 @@ const Navigation = () => {
                     }`}
                     onClick={(e) => { e.preventDefault(); handleNavigate("/team"); }}
                   >
-                    <div className="flex items-center justify-end">
+                    <div className={`flex items-center ${language === 'ar' ? 'justify-start flex-row-reverse' : 'justify-end'}`}>
                       <span className="group-hover:text-blue-300 transition-colors duration-300">{t.navigation.team}</span>
-                      <div className="w-2 h-2 rounded-full bg-green-400 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110 ml-4"></div>
+                      <div className={`w-2 h-2 rounded-full bg-green-400 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110 ${language === 'ar' ? 'mr-4' : 'ml-4'}`}></div>
                     </div>
                   </a>
                   <div className="p-0 pt-2">
                     <button
                       onClick={toggleLanguage}
-                      className="group w-full flex items-center justify-end gap-3 text-white/90 text-lg py-4 px-4 rounded-2xl hover:bg-white/10 border border-transparent hover:border-white/20 transition-all duration-300 hover:transform hover:translate-x-1 mb-4"
+                      className={`group w-full flex items-center ${language === 'ar' ? 'justify-start flex-row-reverse' : 'justify-end'} gap-3 text-white/90 text-lg py-4 px-4 rounded-2xl hover:bg-white/10 border border-transparent hover:border-white/20 transition-all duration-300 hover:transform hover:translate-x-1 mb-4`}
                     >
                       <span className="group-hover:text-blue-300 transition-colors duration-300">
                         {language === 'en' ? 'عربي' : 'EN'}
                       </span>
                       <Globe className="h-5 w-5 text-white/90 group-hover:text-blue-300 group-hover:rotate-180 transition-all duration-500" />
-                      <div className="w-2 h-2 rounded-full bg-orange-400 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110"></div>
+                      <div className={`w-2 h-2 rounded-full bg-orange-400 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110 ${language === 'ar' ? 'mr-4' : ''}`}></div>
                     </button>
                     <div className="relative">
                       <Button
