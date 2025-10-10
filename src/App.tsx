@@ -4,25 +4,18 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useScrollToTop } from "@/hooks/useScrollToTop";
-import ProtectedRoute from "@/components/ProtectedRoute";
 import { useState, useEffect } from "react";
 import type { CSSProperties } from "react";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import ContactPage from "@/pages/Contact";
 import AdminDashboard from "@/pages/Admin";
-import AdminPortfolio from "@/pages/AdminPortfolio";
-import AdminTeam from "./pages/AdminTeam";
 import BrandingIdentityDesignPage from "@/components/LandingPage/BrandingIdentityDesign";
 import AboutPage from "@/components/LandingPage/main/aboutUsMainSection";
 import OurTeamPage from "@/components/LandingPage/main/ourTeamMain";
 import MediaProductionPage from "@/components/LandingPage/MediaProduction";
 import OutdoorAdvertisingPage from "@/components/LandingPage/OutdoorAdvertising";
 import SocialMediaManagementPage from "@/components/LandingPage/socialMediaManagment";
-import AdminBranding from "@/pages/AdminBranding";
-import AdminSocialMediaManagement from "@/pages/AdminSocialMediaManagement";
-import AdminMediaProduction from "@/pages/AdminMediaProduction";
-import AdminOutdoorAdvertising from "@/pages/AdminOutdoorAdvertising";
 
 const queryClient = new QueryClient();
 
@@ -32,13 +25,7 @@ const AppRoutes = () => {
     <Routes>
       <Route path="/" element={<Index />} />
       <Route path="/contact" element={<ContactPage />} />
-      <Route path="/admin" element={<AdminDashboard />} />
-      <Route path="/admin/team" element={<ProtectedRoute><AdminTeam /></ProtectedRoute>} />
-      <Route path="/admin/portfolio" element={<ProtectedRoute><AdminPortfolio /></ProtectedRoute>} />
-      <Route path="/admin/branding" element={<ProtectedRoute><AdminBranding /></ProtectedRoute>} />
-      <Route path="/admin/social-media" element={<ProtectedRoute><AdminSocialMediaManagement /></ProtectedRoute>} />
-      <Route path="/admin/media-production" element={<ProtectedRoute><AdminMediaProduction /></ProtectedRoute>} />
-      <Route path="/admin/outdoor-ads" element={<ProtectedRoute><AdminOutdoorAdvertising /></ProtectedRoute>} />
+      <Route path="/admin/*" element={<AdminDashboard />} />
       <Route path="/branding-identity-design" element={<BrandingIdentityDesignPage />} />
       <Route path="/about" element={<AboutPage />} />
       <Route path="/team" element={<OurTeamPage />} />
