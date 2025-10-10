@@ -49,7 +49,7 @@ const Navigation = () => {
       title: item.title,
       path: item.path
     })),
-    { title: t.navigation.portfolio, path: "https://www.behance.net/Looklikeadd544", external: true },
+    { title: t.navigation.portfolio, path: "https://www.behance.net/looklikeadv", external: true },
     { title: t.navigation.team, path: "/team" },
     { title: t.navigation.contact, path: "/contact" },
   ], [t.navigation, serviceItems]);
@@ -225,7 +225,7 @@ const Navigation = () => {
             {/* END: Centered "Solid Glass" Submenu */}
 
             <a
-              href="https://www.behance.net/Looklikeadd544"
+              href="https://www.behance.net/looklikeadv"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white text-base hover:text-blue-300 transition-colors"
@@ -450,7 +450,7 @@ const Navigation = () => {
                     )}
                   </div>
                   <a
-                    href="https://www.behance.net/Looklikeadd544"
+                    href="https://www.behance.net/looklikeadv"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group block text-white/90 font-medium text-lg py-4 px-4 rounded-2xl hover:bg-white/10 border border-transparent hover:border-white/20 transition-all duration-300 hover:transform hover:translate-x-1"
