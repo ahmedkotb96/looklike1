@@ -21,6 +21,7 @@ interface BrandingItem {
   name: string;
   description: string;
   image: string;
+  link?: string;
 }
 
 export default function Index() {
@@ -39,6 +40,7 @@ export default function Index() {
             name: data.name,
             description: data.description,
             image: data.image,
+            link: data.link,
           };
         })
       );
@@ -185,60 +187,76 @@ export default function Index() {
         {/* Portfolio Grid */}
         <section className="relative z-40 px-6 sm:px-8 md:px-16 lg:px-32 py-4 sm:py-6 md:py-8 max-w-7xl mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 mb-8 sm:mb-12 md:mb-16">
-            {allItems.map((item) => (
-              <div
-                key={item.id}
-                className="group relative flex flex-col p-2 gap-3 rounded-[18px] bg-gray-800 hover:bg-gray-700 transition-colors overflow-hidden"
-              >
-                <button
-                  className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 pointer-events-auto"
-                  style={{ pointerEvents: "auto" }}
-                  aria-label={`View ${item.name}`}
-                  tabIndex={0}
+            {allItems.map((item) => {
+              const cardContent = (
+                <div className="group relative flex flex-col p-2 gap-3 rounded-[18px] bg-gray-800 hover:bg-gray-700 transition-colors overflow-hidden"
                 >
-                  <span
-                    className="flex items-center justify-center w-14 h-14 border border-white/30 shadow-lg hover:opacity-90 transition-all"
-                    style={{
-                      borderRadius: "2018.518px",
-                      background:
-                        "linear-gradient(267deg, #00F0FF 4.01%, #5200FF 57.55%, #FF2DF7 114.97%)",
-                      boxShadow:
-                        "0 0 0 4px rgba(255,255,255,0.7), 0 0 16px 4px rgba(255,255,255,0.5)",
-                    }}
+                  <button
+                    className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 pointer-events-auto"
+                    style={{ pointerEvents: "auto" }}
+                    aria-label={`View ${item.name}`}
+                    tabIndex={0}
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="20"
-                      height="20"
-                      viewBox="0 0 52 52"
-                      fill="none"
+                    <span
+                      className="flex items-center justify-center w-14 h-14 border border-white/30 shadow-lg hover:opacity-90 transition-all"
+                      style={{
+                        borderRadius: "2018.518px",
+                        background:
+                          "linear-gradient(267deg, #00F0FF 4.01%, #5200FF 57.55%, #FF2DF7 114.97%)",
+                        boxShadow:
+                          "0 0 0 4px rgba(255,255,255,0.7), 0 0 16px 4px rgba(255,255,255,0.5)",
+                      }}
                     >
-                      <path
-                        d="M8.44509 49.7399L42.9883 15.1967L42.9883 45.3795C42.9883 47.7917 44.9675 49.7709 47.3797 49.7709C49.7918 49.7709 51.7401 47.8226 51.7401 45.4104L51.7401 4.65128C51.7401 2.23913 49.7918 0.290861 47.3797 0.290857L6.62051 0.229006C4.20836 0.229008 2.26009 2.17728 2.26009 4.58943C2.26009 7.00158 4.20836 8.94986 6.62051 8.94986L36.8033 9.01171L2.26009 43.5549C0.559212 45.2558 0.559213 48.0391 2.26009 49.7399C3.96096 51.4408 6.74421 51.4408 8.44509 49.7399Z"
-                        fill="white"
-                      />
-                    </svg>
-                  </span>
-                </button>
-                <div className="flex h-[250px] sm:h-[280px] md:h-[319px] justify-center items-center rounded-[11px] overflow-hidden">
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                    loading="lazy"
-                    decoding="async"
-                  />
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 52 52"
+                        fill="none"
+                      >
+                        <path
+                          d="M8.44509 49.7399L42.9883 15.1967L42.9883 45.3795C42.9883 47.7917 44.9675 49.7709 47.3797 49.7709C49.7918 49.7709 51.7401 47.8226 51.7401 45.4104L51.7401 4.65128C51.7401 2.23913 49.7918 0.290861 47.3797 0.290857L6.62051 0.229006C4.20836 0.229008 2.26009 2.17728 2.26009 4.58943C2.26009 7.00158 4.20836 8.94986 6.62051 8.94986L36.8033 9.01171L2.26009 43.5549C0.559212 45.2558 0.559213 48.0391 2.26009 49.7399C3.96096 51.4408 6.74421 51.4408 8.44509 49.7399Z"
+                          fill="white"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                  <div className="flex h-[250px] sm:h-[280px] md:h-[319px] justify-center items-center rounded-[11px] overflow-hidden">
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                  <div className="flex flex-col gap-2 px-2 pb-2">
+                    <h3 className="text-white font-inter text-base sm:text-lg font-bold leading-tight">
+                      {item.name}
+                    </h3>
+                    <p className="text-gray-100 font-inter text-xs font-normal leading-relaxed opacity-80">
+                      {item.description}
+                    </p>
+                  </div>
                 </div>
-                <div className="flex flex-col gap-2 px-2 pb-2">
-                  <h3 className="text-white font-inter text-base sm:text-lg font-bold leading-tight">
-                    {item.name}
-                  </h3>
-                  <p className="text-gray-100 font-inter text-xs font-normal leading-relaxed opacity-80">
-                    {item.description}
-                  </p>
-                </div>
-              </div>
-            ))}
+              );
+
+              if (item.link) {
+                return (
+                  <a
+                    key={item.id}
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block"
+                  >
+                    {cardContent}
+                  </a>
+                );
+              }
+
+              return <div key={item.id}>{cardContent}</div>;
+            })}
           </div>
 
           {/* Description and Explore More */}

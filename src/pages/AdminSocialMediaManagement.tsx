@@ -16,6 +16,7 @@ interface PortfolioItem {
   description: string;
   image: string;
   logo?: string;
+  link?: string;
   order: number;
 }
 
@@ -64,6 +65,7 @@ const EditModal = ({ item, isOpen, onClose, onSave, loading }: { item: Portfolio
                     <input type="text" name="description" value={formData.description} onChange={handleChange} placeholder="Description" className="w-full px-4 py-2 border border-slate-300 rounded-lg" />
                     <input type="text" name="image" value={formData.image} onChange={handleChange} placeholder="Image URL" className="w-full px-4 py-2 border border-slate-300 rounded-lg" />
                     <input type="text" name="logo" value={formData.logo || ''} onChange={handleChange} placeholder="Logo URL (Optional)" className="w-full px-4 py-2 border border-slate-300 rounded-lg" />
+                    <input type="text" name="link" value={formData.link || ''} onChange={handleChange} placeholder="Link URL (Optional - e.g., https://behance.net/...)" className="w-full px-4 py-2 border border-slate-300 rounded-lg" />
                 </div>
                 <div className="mt-6 flex justify-end gap-3">
                     <button onClick={onClose} className="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200">Cancel</button>
@@ -118,7 +120,7 @@ const AdminSocialMediaManagement = () => {
 
     const fetchPortfolioItems = useCallback(async () => {
         setLoading(true);
-        const snapshot = await getDocs(collection(db, 'projects'));
+        const snapshot = await getDocs(collection(db, 'socialMediaManagement'));
         const items = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id } as PortfolioItem));
         items.sort((a, b) => a.order - b.order);
         setPortfolioItems(items);
@@ -140,7 +142,7 @@ const AdminSocialMediaManagement = () => {
         setLoading(true);
         const batch = writeBatch(db);
         portfolioItems.forEach((item, index) => {
-            batch.update(doc(db, 'projects', item.id), { order: index });
+            batch.update(doc(db, 'socialMediaManagement', item.id), { order: index });
         });
         try {
             await batch.commit();
@@ -154,7 +156,7 @@ const AdminSocialMediaManagement = () => {
     };
 
     const handleOpenModal = (item: PortfolioItem | null = null) => {
-        setEditingItem(item || { id: '', title: '', description: '', image: '', logo: '', order: portfolioItems.length });
+        setEditingItem(item || { id: '', title: '', description: '', image: '', logo: '', link: '', order: portfolioItems.length });
         setIsModalOpen(true);
     };
 
@@ -162,10 +164,10 @@ const AdminSocialMediaManagement = () => {
         setLoading(true);
         try {
             if (itemToSave.id) {
-                await updateDoc(doc(db, 'projects', itemToSave.id), { ...itemToSave });
+                await updateDoc(doc(db, 'socialMediaManagement', itemToSave.id), { ...itemToSave });
                 showNotification('Item updated successfully!', 'success');
             } else {
-                await addDoc(collection(db, 'projects'), itemToSave);
+                await addDoc(collection(db, 'socialMediaManagement'), itemToSave);
                 showNotification('Item added successfully!', 'success');
             }
             setIsModalOpen(false);
@@ -181,7 +183,7 @@ const AdminSocialMediaManagement = () => {
     const handleRemoveItem = async (id: string) => {
         if (window.confirm('Are you sure you want to delete this item?')) {
             try {
-                await deleteDoc(doc(db, 'projects', id));
+                await deleteDoc(doc(db, 'socialMediaManagement', id));
                 showNotification('Item removed successfully.', 'success');
                 fetchPortfolioItems();
             } catch {

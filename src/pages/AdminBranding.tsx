@@ -15,6 +15,7 @@ interface BrandingItem {
   name: string;
   description: string;
   image: string;
+  link?: string;
   order: number;
 }
 
@@ -62,6 +63,7 @@ const EditModal = ({ item, isOpen, onClose, onSave, loading }: { item: BrandingI
                     <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Name" className="w-full px-4 py-2 border border-slate-300 rounded-lg" />
                     <input type="text" name="description" value={formData.description} onChange={handleChange} placeholder="Description" className="w-full px-4 py-2 border border-slate-300 rounded-lg" />
                     <input type="text" name="image" value={formData.image} onChange={handleChange} placeholder="Image URL" className="w-full px-4 py-2 border border-slate-300 rounded-lg" />
+                    <input type="text" name="link" value={formData.link || ''} onChange={handleChange} placeholder="Link URL (Optional - e.g., Behance link)" className="w-full px-4 py-2 border border-slate-300 rounded-lg" />
                 </div>
                 <div className="mt-6 flex justify-end gap-3">
                     <button onClick={onClose} className="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200">Cancel</button>
@@ -152,7 +154,7 @@ const AdminBranding = () => {
     };
 
     const handleOpenModal = (item: BrandingItem | null = null) => {
-        setEditingItem(item || { id: '', name: '', description: '', image: '', order: brandingItems.length });
+        setEditingItem(item || { id: '', name: '', description: '', image: '', link: '', order: brandingItems.length });
         setIsModalOpen(true);
     };
 

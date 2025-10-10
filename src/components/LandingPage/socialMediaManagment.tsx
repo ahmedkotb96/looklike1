@@ -22,6 +22,7 @@ interface SocialMediaItem {
   description: string;
   image: string;
   behanceLink?: string;
+  link?: string;
 }
 
 const RightPinkBlur = () => (
@@ -81,10 +82,11 @@ const SocialMediaManagment: React.FC = () => {
           const data = doc.data();
           return {
             id: doc.id,
-            name: data.name,
+            name: data.name || data.title,
             description: data.description,
             image: data.image,
-            behanceLink: data.behanceLink,
+            behanceLink: data.behanceLink || data.link,
+            link: data.link,
           };
         })
       );
@@ -245,11 +247,11 @@ const SocialMediaManagment: React.FC = () => {
                 </div>
               );
 
-              if (item.behanceLink) {
+              if (item.behanceLink || item.link) {
                 return (
                   <a
                     key={item.id}
-                    href={item.behanceLink}
+                    href={item.behanceLink || item.link}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="block"
