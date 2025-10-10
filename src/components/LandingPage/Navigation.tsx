@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { X, Menu, ChevronDown, Globe, Search } from "lucide-react";
@@ -16,7 +16,7 @@ const Navigation = () => {
   const location = useLocation();
   const t = translations[language];
 
-  const serviceItems = [
+  const serviceItems = useMemo(() => [
     {
       title: t.services.socialMedia.title,
       path: "/social-media-management"
@@ -33,9 +33,16 @@ const Navigation = () => {
       title: t.services.outdoor.title,
       path: "/outdoor-advertising"
     }
-  ];
+  ], [t.services]);
 
-  const allSearchableItems: { title: string; path: string; external?: boolean }[] = [
+
+  const handleNavigate = useCallback((path: string) => {
+    navigate(path);
+    setMenuOpen(false);
+    setServicesDropdownOpen(false);
+  }, [navigate]);
+
+  const allSearchableItemsMemo = useMemo(() => [
     { title: t.navigation.home, path: "/" },
     { title: t.navigation.about, path: "/about" },
     ...serviceItems.map(item => ({
@@ -45,15 +52,18 @@ const Navigation = () => {
     { title: t.navigation.portfolio, path: "https://www.behance.net/Looklikeadd544", external: true },
     { title: t.navigation.team, path: "/team" },
     { title: t.navigation.contact, path: "/contact" },
-  ];
+  ], [t.navigation, serviceItems]);
 
-  const filteredResults = searchQuery
-    ? allSearchableItems.filter(item =>
-        item.title.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : [];
+  const filteredResults = useMemo(() => 
+    searchQuery
+      ? allSearchableItemsMemo.filter(item =>
+          item.title.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      : [],
+    [searchQuery, allSearchableItemsMemo]
+  );
 
-  const handleSearchNavigation = (path: string, external = false) => {
+  const handleSearchNavigation = useCallback((path: string, external = false) => {
     setSearchOpen(false);
     setSearchQuery("");
     if (external) {
@@ -61,13 +71,7 @@ const Navigation = () => {
     } else {
       handleNavigate(path);
     }
-  };
-
-  const handleNavigate = (path: string) => {
-    navigate(path);
-    setMenuOpen(false);
-    setServicesDropdownOpen(false);
-  };
+  }, [handleNavigate]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -86,6 +90,36 @@ const Navigation = () => {
   useEffect(() => {
     setServicesDropdownOpen(false);
   }, [location.pathname]);
+
+  // Keyboard navigation and click outside for search
+  useEffect(() => {
+    if (!searchOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setSearchOpen(false);
+        setSearchQuery("");
+      } else if (e.key === 'Enter' && filteredResults.length > 0) {
+        handleSearchNavigation(filteredResults[0].path, !!filteredResults[0].external);
+      }
+    };
+
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      // Close search if clicking outside the search container
+      if (!target.closest('.search-container') && searchOpen) {
+        setSearchOpen(false);
+        setSearchQuery("");
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [searchOpen, filteredResults, handleSearchNavigation]);
 
   const isServicesActive = location.pathname === '/services' || serviceItems.some(item => item.path === location.pathname);
 
@@ -214,51 +248,87 @@ const Navigation = () => {
               {t.navigation.contact}
             </Button>
 
-            <div className={`relative ${language === 'ar' ? 'mr-2' : 'ml-2'}`}>
+            <div className={`relative search-container ${language === 'ar' ? 'mr-2' : 'ml-2'}`}>
               <Button
                 variant="ghost"
                 size="icon"
-                className="text-white hover:bg-white/10 rounded-full"
-                onClick={() => setSearchOpen(true)}
+                className="text-white hover:bg-white/10 rounded-full transition-all duration-200"
+                onClick={() => setSearchOpen(!searchOpen)}
+                aria-label="Search"
               >
                 <Search className="h-5 w-5" />
               </Button>
               {searchOpen && (
                 <>
-                  <div className="fixed inset-0 bg-black/30 z-50" onClick={() => setSearchOpen(false)}></div>
-                  <div className="absolute right-0 top-1/2 -translate-y-1/2 w-72 bg-gray-900/80 backdrop-blur-sm rounded-lg p-3 shadow-lg z-50">
-                    <div className="flex items-center border-b border-white/20 pb-2">
-                      <Search className="h-5 w-5 text-gray-400 mr-2" />
-                      <input
-                        type="text"
-                        placeholder="Search..."
-                        className="w-full bg-transparent text-white placeholder-gray-400 focus:outline-none"
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        autoFocus
-                      />
-                    </div>
-                    {searchQuery && (
-                      <div className="mt-2 max-h-60 overflow-y-auto">
-                        {filteredResults.length > 0 ? (
-                          filteredResults.map((item, index) => (
-                            <a
-                              key={index}
-                              href={item.path}
-                              onClick={(e) => {
-                                e.preventDefault();
-                                handleSearchNavigation(item.path, !!item.external);
-                              }}
-                              className="block px-4 py-2 text-sm text-white hover:bg-white/10 rounded"
-                            >
-                              {item.title}
-                            </a>
-                          ))
-                        ) : (
-                          <p className="px-4 py-2 text-sm text-gray-400">No results found</p>
+                  <div 
+                    className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 animate-in fade-in duration-200" 
+                    onClick={() => {
+                      setSearchOpen(false);
+                      setSearchQuery("");
+                    }}
+                  ></div>
+                  <div className={`search-dropdown absolute ${language === 'ar' ? 'left-0' : 'right-0'} top-full mt-2 w-80 bg-gradient-to-b from-gray-900/95 to-black/90 backdrop-blur-xl rounded-2xl border border-white/20 shadow-2xl z-50 animate-in slide-in-from-top-2 duration-200`}>
+                    <div className="p-4">
+                      <div className="flex items-center gap-3 pb-3 border-b border-white/10">
+                        <Search className="h-5 w-5 text-blue-400 flex-shrink-0" />
+                        <input
+                          type="text"
+                          placeholder={language === 'ar' ? 'ابحث...' : 'Search...'}
+                          className="w-full bg-transparent text-white placeholder-gray-400 focus:outline-none text-sm"
+                          value={searchQuery}
+                          onChange={(e) => setSearchQuery(e.target.value)}
+                          autoFocus
+                        />
+                        {searchQuery && (
+                          <button
+                            onClick={() => setSearchQuery("")}
+                            className="text-gray-400 hover:text-white transition-colors"
+                            aria-label="Clear search"
+                          >
+                            <X className="h-4 w-4" />
+                          </button>
                         )}
                       </div>
-                    )}
+                      {searchQuery && (
+                        <div className="mt-3 max-h-80 overflow-y-auto custom-scrollbar">
+                          {filteredResults.length > 0 ? (
+                            <div className="space-y-1">
+                              {filteredResults.map((item, index) => (
+                                <a
+                                  key={index}
+                                  href={item.path}
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    handleSearchNavigation(item.path, !!item.external);
+                                  }}
+                                  className="group flex items-center justify-between px-3 py-2.5 text-sm text-white/90 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200 cursor-pointer"
+                                >
+                                  <span className="group-hover:text-blue-300 transition-colors">{item.title}</span>
+                                  <div className="w-1.5 h-1.5 rounded-full bg-blue-400 opacity-0 group-hover:opacity-100 transition-all duration-200"></div>
+                                </a>
+                              ))}
+                            </div>
+                          ) : (
+                            <div className="flex flex-col items-center justify-center py-8 text-center">
+                              <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center mb-3">
+                                <Search className="h-6 w-6 text-gray-500" />
+                              </div>
+                              <p className="text-sm text-gray-400">{language === 'ar' ? 'لا توجد نتائج' : 'No results found'}</p>
+                              <p className="text-xs text-gray-500 mt-1">{language === 'ar' ? 'جرب مصطلح بحث آخر' : 'Try a different search term'}</p>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                      {!searchQuery && (
+                        <div className="mt-3 py-6 text-center">
+                          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center mx-auto mb-3">
+                            <Search className="h-6 w-6 text-blue-400" />
+                          </div>
+                          <p className="text-sm text-gray-400">{language === 'ar' ? 'ابدأ الكتابة للبحث' : 'Start typing to search'}</p>
+                          <p className="text-xs text-gray-500 mt-1">{language === 'ar' ? 'اضغط ESC للإغلاق' : 'Press ESC to close'}</p>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </>
               )}

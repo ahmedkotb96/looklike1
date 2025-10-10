@@ -177,7 +177,7 @@ if (typeof window !== 'undefined') {
 }
 
 // Main content component
-const MainContent = ({ t }: { t: any }) => (
+const MainContent = ({ t }: { t: typeof translations.en | typeof translations.ar }) => (
   <div className="relative z-30 flex flex-col items-center justify-center text-center px-4 max-w-7xl mx-auto mb-auto"
        // IMPROVEMENT: Gap between elements is now responsive to screen height.
        style={{ gap: 'clamp(1rem, 3vh, 3rem)' }}>
@@ -195,35 +195,42 @@ const MainContent = ({ t }: { t: any }) => (
 );
 
 // Main heading component
-const MainHeading = ({ t }: { t: any }) => (
-  <h1
-    style={{
-      color: '#FFF',
-      textAlign: 'center',
-      fontFamily: 'DM Sans, sans-serif',
-      // IMPROVEMENT: Replaced fixed font-size with clamp() for fluid scaling.
-      // This makes the text large on desktops but readable without overflow on mobile.
-      fontSize: 'clamp(4rem, 12vw, 11rem)',
-      fontStyle: 'normal',
-      fontWeight: 700,
-      // IMPROVEMENT: Used a unitless line-height for proper scaling with the font-size.
-      lineHeight: 0.95,
-      margin: 0,
-      padding: 0,
-    }}
-  >
-    <span style={{ display: 'block' }}>
-      {t.hero.expectMore.split(' ')[0]}
-    </span>
-    <span style={{ 
-        display: 'block', 
-        // IMPROVEMENT: Responsive margin-top to maintain spacing across screen sizes.
-        marginTop: 'clamp(0.25rem, 2vh, 1rem)' 
-    }}>
-      {t.hero.expectMore.split(' ').slice(1).join(' ')}
-    </span>
-  </h1>
-);
+const MainHeading = ({ t }: { t: typeof translations.en | typeof translations.ar }) => {
+  // Split the text to show "Expect More" on first line and "With Us!" on second line
+  const text = t.hero.expectMore;
+  const firstLine = text.includes('Expect More') ? 'Expect More' : text.split(' ').slice(0, 2).join(' ');
+  const secondLine = text.includes('With Us') ? text.replace(firstLine, '').trim() : text.split(' ').slice(2).join(' ');
+  
+  return (
+    <h1
+      style={{
+        color: '#FFF',
+        textAlign: 'center',
+        fontFamily: 'DM Sans, sans-serif',
+        // IMPROVEMENT: Replaced fixed font-size with clamp() for fluid scaling.
+        // This makes the text large on desktops but readable without overflow on mobile.
+        fontSize: 'clamp(4rem, 12vw, 11rem)',
+        fontStyle: 'normal',
+        fontWeight: 700,
+        // IMPROVEMENT: Used a unitless line-height for proper scaling with the font-size.
+        lineHeight: 0.95,
+        margin: 0,
+        padding: 0,
+      }}
+    >
+      <span style={{ display: 'block' }}>
+        {firstLine}
+      </span>
+      <span style={{ 
+          display: 'block', 
+          // IMPROVEMENT: Responsive margin-top to maintain spacing across screen sizes.
+          marginTop: 'clamp(0.25rem, 2vh, 1rem)' 
+      }}>
+        {secondLine}
+      </span>
+    </h1>
+  );
+};
 
 // Welcome text component
 const baseWelcomeTextStyle = {
@@ -239,7 +246,7 @@ const baseWelcomeTextStyle = {
   lineHeight: 1.5,
 };
 
-const WelcomeText = ({ t }: { t: any }) => (
+const WelcomeText = ({ t }: { t: typeof translations.en | typeof translations.ar }) => (
   // IMPROVEMENT: Responsive margin-top to ensure proper spacing from the main heading.
   <div style={{ marginTop: 'clamp(1rem, 4vh, 2rem)' }}>
     <div style={baseWelcomeTextStyle}>
@@ -252,7 +259,7 @@ const WelcomeText = ({ t }: { t: any }) => (
 );
 
 // CTA button component
-const CTAButton = ({ t }: { t: any }) => (
+const CTAButton = ({ t }: { t: typeof translations.en | typeof translations.ar }) => (
   <a href="#services" tabIndex={-1} className="focus:outline-none">
     <Button 
       className="bg-white/10 border border-white/15 rounded-lg backdrop-blur-[7px] 
