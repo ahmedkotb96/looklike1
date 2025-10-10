@@ -54,7 +54,7 @@ export default function MediaProduction() {
     };
 
     fetchMediaItems();
-  }, []);
+  }, [t.services.mediaProduction.fallbackTitle]);
 
   // Static items that are always present
   const staticItems: MediaItem[] = [

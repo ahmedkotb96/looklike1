@@ -95,7 +95,7 @@ const SocialMediaManagment: React.FC = () => {
     fetchSocialMediaItems();
   }, []);
 
-  const staticItems: SocialMediaItem[] = t.services.socialMediaManagement.staticItems.map((item: any) => ({
+  const staticItems: SocialMediaItem[] = t.services.socialMediaManagement.staticItems.map((item: { id: string; name: string; description: string; behanceLink?: string }) => ({
     ...item,
     image: (() => {
       switch (item.id) {
