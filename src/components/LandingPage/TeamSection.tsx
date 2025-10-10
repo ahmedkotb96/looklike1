@@ -55,7 +55,6 @@ const TeamSection = () => {
       handleSlideChange('prev');
     }
   };
-  // ...existing code...
 
   const slidesPerView = {
     mobile: 1,
@@ -189,7 +188,7 @@ const TeamSection = () => {
         {/* Mobile: Single card carousel */}
         <div className="block md:hidden relative max-w-xs mx-auto">
           <div
-            className="flex justify-center mb-6 h-[400px] overflow-hidden"
+            className="flex justify-center mb-6 h-[450px] overflow-hidden"
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
@@ -200,8 +199,8 @@ const TeamSection = () => {
                 className={`w-full h-full relative transition-opacity duration-500 ease-in-out ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}
                 style={{ animation: !isTransitioning ? `slideInUp 0.6s ease-out both` : 'none' }}
               >
-                <div className="absolute inset-0 bg-cover bg-center rounded-lg" style={{ backgroundImage: `url(${teamMembers[currentSlide % teamMembers.length].image})` }} />
-                {teamMembers[currentSlide % teamMembers.length].overlay && <div className="absolute inset-0 bg-cover bg-center rounded-lg" style={{ backgroundImage: `url(${teamMembers[currentSlide % teamMembers.length].overlay})` }} />}
+                <div className="absolute inset-0 bg-contain bg-center bg-no-repeat rounded-lg" style={{ backgroundImage: `url(${teamMembers[currentSlide % teamMembers.length].image})` }} />
+                {teamMembers[currentSlide % teamMembers.length].overlay && <div className="absolute inset-0 bg-contain bg-center bg-no-repeat rounded-lg" style={{ backgroundImage: `url(${teamMembers[currentSlide % teamMembers.length].overlay})` }} />}
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent rounded-lg" />
                 <div className="absolute bottom-8 left-8 right-8">
                   <h3 className="text-white text-lg font-semibold mb-1">{teamMembers[currentSlide % teamMembers.length].name}</h3>
