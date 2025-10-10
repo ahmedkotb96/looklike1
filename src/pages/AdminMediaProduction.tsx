@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { db } from '@/firebase';
 import { collection, getDocs, addDoc, deleteDoc, doc, updateDoc, writeBatch } from 'firebase/firestore';
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, type DragEndEvent } from '@dnd-kit/core';
@@ -110,6 +111,7 @@ const SortableItem = ({ item, onEdit, onRemove }: { item: MediaProductionItem, o
 // --- MAIN COMPONENT ---
 
 const AdminMediaProduction = () => {
+    const navigate = useNavigate();
     const [mediaItems, setMediaItems] = useState<MediaProductionItem[]>([]);
     const [loading, setLoading] = useState(true);
     const [isDirty, setIsDirty] = useState(false);
@@ -204,7 +206,7 @@ const AdminMediaProduction = () => {
                 <h2 className="text-3xl font-bold text-slate-800">Manage Media Production</h2>
                 <div className="flex items-center gap-3">
                     <button 
-                        onClick={() => window.location.href = '/looklike/admin'}
+                        onClick={() => navigate('/admin')}
                         className="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200"
                     >
                         ← Back to Admin
