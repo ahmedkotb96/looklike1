@@ -42,13 +42,14 @@ interface OutdoorAdvertisingItem {
 }
 
 // Function to convert a YouTube watch URL to an embed URL
+// This handles both standard watch URLs and shortened youtu.be URLs
 const getYouTubeEmbedUrl = (url: string): string => {
   const regExp = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^/]+\/.+\/(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})(?:\S+)?/;
   const match = url.match(regExp);
   if (match && match[1]) {
     return `https://www.youtube.com/embed/${match[1]}`;
   }
-  return url;
+  return url; // Return original URL if no match, or handle as error
 };
 
 export default function OutdoorAdvertising() {
@@ -74,8 +75,22 @@ export default function OutdoorAdvertising() {
         console.error("Error fetching outdoor advertising items:", error);
       }
     };
+
     fetchOutdoorAdvertisingItems();
-  }, []);
+  }, [t.services.outdoorAdvertising.fallbackTitle]);
+
+  // Static items that are always present
+  const staticItems: OutdoorAdvertisingItem[] = [
+    {
+      id: "static-1",
+      name: "Sample Outdoor Campaign",
+      description: "Example outdoor advertising campaign",
+      mediaUrl: "https://www.youtube.com/embed/gEhJqwWNhhQ",
+    },
+  ];
+
+  // Combine static items with items fetched from Firebase
+  const allItems = [...staticItems, ...outdoorAdvertisingItems];
 
   return (
     <div className="min-h-screen bg-black text-white font-inter relative overflow-hidden">
@@ -144,22 +159,24 @@ export default function OutdoorAdvertising() {
           </div>
           {/* Video Grid - Now dynamically rendered */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {outdoorAdvertisingItems.map((item) => (
-              <div
-                key={item.id}
-                className="relative pt-[56.25%] bg-black/20 rounded-xl overflow-hidden border border-white/20 shadow-lg backdrop-blur-[10px]"
-              >
-                <iframe
-                  className="absolute top-0 left-0 w-full h-full"
-                  src={getYouTubeEmbedUrl(item.mediaUrl)}
-                  style={{ border: "none" }}
-                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                  allowFullScreen={true}
-                  title={item.name}
-                  loading="lazy"
-                ></iframe>
-              </div>
-            ))}
+            {allItems
+              .filter((item) => item.mediaUrl) // Only render items with valid mediaUrl
+              .map((item) => (
+                <div
+                  key={item.id}
+                  className="relative pt-[56.25%] bg-black/20 rounded-xl overflow-hidden border border-white/20 shadow-lg backdrop-blur-[10px]"
+                >
+                  <iframe
+                    className="absolute top-0 left-0 w-full h-full"
+                    src={getYouTubeEmbedUrl(item.mediaUrl)}
+                    style={{ border: "none" }}
+                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                    allowFullScreen={true}
+                    title={item.name}
+                    loading="lazy"
+                  ></iframe>
+                </div>
+              ))}
           </div>
           {/* Description and Explore More */}
           <div className="text-center relative z-50 mt-16 sm:mt-20 md:mt-24">

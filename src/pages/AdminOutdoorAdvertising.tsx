@@ -14,7 +14,7 @@ interface OutdoorAdvertisingItem {
   id: string;
   name: string;
   description: string;
-  image: string;
+  mediaUrl: string;
   order: number;
 }
 
@@ -61,7 +61,7 @@ const EditModal = ({ item, isOpen, onClose, onSave, loading }: { item: OutdoorAd
                 <div className="space-y-4">
                     <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Name" className="w-full px-4 py-2 border border-slate-300 rounded-lg" />
                     <input type="text" name="description" value={formData.description} onChange={handleChange} placeholder="Description" className="w-full px-4 py-2 border border-slate-300 rounded-lg" />
-                    <input type="text" name="image" value={formData.image} onChange={handleChange} placeholder="Image URL" className="w-full px-4 py-2 border border-slate-300 rounded-lg" />
+                    <input type="text" name="mediaUrl" value={formData.mediaUrl} onChange={handleChange} placeholder="YouTube URL or Media URL" className="w-full px-4 py-2 border border-slate-300 rounded-lg" />
                 </div>
                 <div className="mt-6 flex justify-end gap-3">
                     <button onClick={onClose} className="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200">Cancel</button>
@@ -79,7 +79,7 @@ const SortableItemUI = React.forwardRef<HTMLLIElement, SortableItemUIProps>(
         <li ref={ref} {...props} className="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm border border-slate-200">
             <div className="flex items-center gap-4">
                 <button {...listeners} className="cursor-grab text-slate-400 hover:text-slate-600"><GripVertical size={20} /></button>
-                <img src={item.image} alt={item.name} className="w-16 h-12 rounded-md object-cover bg-slate-100" />
+                <img src={item.mediaUrl} alt={item.name} className="w-16 h-12 rounded-md object-cover bg-slate-100" />
                 <div>
                     <p className="font-semibold text-slate-800">{item.name}</p>
                     <p className="text-sm text-slate-500">{item.description}</p>
@@ -152,7 +152,7 @@ const AdminOutdoorAdvertising = () => {
     };
 
     const handleOpenModal = (item: OutdoorAdvertisingItem | null = null) => {
-        setEditingItem(item || { id: '', name: '', description: '', image: '', order: outdoorItems.length });
+        setEditingItem(item || { id: '', name: '', description: '', mediaUrl: '', order: outdoorItems.length });
         setIsModalOpen(true);
     };
 
